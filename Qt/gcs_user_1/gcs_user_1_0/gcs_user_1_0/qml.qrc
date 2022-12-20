@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ui/bottomBar/BottomBar.qml</file>
+        <file>ui/rightScreen/RightScreen.qml</file>
+        <file>ui/leftScreen/LeftScreen.qml</file>
+        <file>ui/rightScreen/MapView.qml</file>
+        <file>ui/leftScreen/Home.qml</file>
+        <file>ui/leftScreen/ControlManualButton.qml</file>
+        <file>ui/leftScreen/SelectMode.qml</file>
+        <file>ui/assets/setting.png</file>
+        <file>ui/rightScreen/VelocityGauge.qml</file>
+        <file>ui/assets/home.png</file>
+        <file>ui/assets/garbage.png</file>
+        <file>ui/assets/depth.png</file>
+        <file>ui/rightScreenDepthSurvey/RightScreenDepthSurvey.qml</file>
+        <file>ui/rightScreenWelcome/RightScreenWelcome.qml</file>
+        <file>ui/assets/selectMode.png</file>
+        <file>ui/assets/manualMode.png</file>
+        <file>ui/assets/zigzagMode.png</file>
+        <file>ui/assets/abLineMode.png</file>
+        <file>ui/assets/onePointMode.png</file>
+        <file>ui/assets/stopwatch.png</file>
+        <file>ui/assets/battery.png</file>
+        <file>ui/assets/process.png</file>
+        <file>ui/assets/homeDistance.png</file>
+        <file>ui/passWord/PassWordScreen.qml</file>
+    </qresource>
+</RCC>
