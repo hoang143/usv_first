@@ -29,6 +29,7 @@
 // OBSTACLE AVOIDANCE
   int obstacle_scenario = 0;
   int obstacle_side = 0;
+  int front_detect = 0;
 
   float distance_left = 100;
   float distance_right = 100;
@@ -480,17 +481,7 @@ void loop(){
   {
     obstacle_scenario = 1;
     obstacle_side = 0;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
-    {
-      //if (yaw_error > 0)
-      {
-        yaw_error = yaw_error + (3*pi/4);
-      }
-      //else
-      {
-      //  yaw_error = yaw_error - (pi/2);
-      }
-    }
+    front_detect = 1;
   }
 
 // ------------ Scienario 2: Front and side obstacle ------------ 
@@ -498,14 +489,14 @@ void loop(){
   {
     obstacle_scenario = 2;
     obstacle_side = 1;
-    yaw_error = yaw_error + (pi/2);
+    front_detect = 1;
   }
   
   if ((distance_front<front_avoid_detect_radius) && (distance_left>side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 2;
     obstacle_side = 2;
-    yaw_error = yaw_error - (pi/2);
+    front_detect = 2;
   }
 
 // ------------ Scienario 3: Side obstacle ------------
@@ -513,7 +504,8 @@ void loop(){
   {
     obstacle_scenario = 3;
     obstacle_side = 1;
-    //if ((yaw_error > -120)&&(yaw_error < 10))
+    front_detect = 0;
+    if ((yaw_error > -pi)&&(yaw_error < pi/4))
     {
       yaw_error = -(pi/4)*(distance_left - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
     }
@@ -522,7 +514,8 @@ void loop(){
   {
     obstacle_scenario = 3;
     obstacle_side = 2;
-    //if ((yaw_error > -10)&&(yaw_error < 120))
+    front_detect = 0;
+    if ((yaw_error > -pi/4)&&(yaw_error < pi))
     {
       yaw_error = (pi/4)*(distance_right - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
     }
@@ -532,17 +525,18 @@ void loop(){
   if ((distance_front>front_avoid_detect_radius)&& (distance_left<side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 4;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
+    front_detect = 0;
+    if ((yaw_error > -3*pi/4)&&(yaw_error < 3*pi/4))
     {
       if (distance_left < distance_right)
       {
         obstacle_side = 1;
-        yaw_error = yaw_error + (pi/2);
+        yaw_error = -(pi/4)*(distance_left - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
       }
       else
       {
         obstacle_side = 2;
-        yaw_error = yaw_error - (pi/2);
+        yaw_error = (pi/4)*(distance_right - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
       }
     }
   }
@@ -552,12 +546,29 @@ void loop(){
   {
     obstacle_scenario = 5;
     obstacle_side = 0;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
+    front_detect = 1;
+  }
+
+// ------------ Scenario 6: No obstacle - Release trigger turn ------------
+  if ((distance_front>front_avoid_detect_radius)&& (distance_left>side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
+  {
+    if ((yaw_error < -4*pi/5)||(yaw_error > 4*pi/5))
     {
-        yaw_error = yaw_error + (pi);
+      obstacle_scenario = 6;
+      obstacle_side = 0;
+      front_detect = 0;
     }
   }
-  
+
+// ------------ Triggered turn ------------
+  if (front_detect == 1)
+  {
+    yaw_error = yaw_error + (3*pi/4);
+  }
+  if (front_detect == 2)
+  {
+    yaw_error = yaw_error - (3*pi/4);
+  }
 
 // ----------------------------------------------- CONTROL FACTORS -----------------------------------------------    
   k_yaw_error = 1 / (1 + a*pow(yaw_error,2));                   // range 1 ~ 0

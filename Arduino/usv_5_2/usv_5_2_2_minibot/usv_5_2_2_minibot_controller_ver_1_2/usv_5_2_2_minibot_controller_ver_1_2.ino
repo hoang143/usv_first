@@ -29,10 +29,13 @@
 // OBSTACLE AVOIDANCE
   int obstacle_scenario = 0;
   int obstacle_side = 0;
+  int front_detect = 0;
 
-  float distance_left = 100;
-  float distance_right = 100;
-  float distance_front = 100;
+  float distance_left = 10;
+  float distance_right = 10;
+  float distance_front = 10;
+  float distance_front_left = 10;
+  float distance_front_right = 10;
 
   const float side_avoid_limit = 0.05;
   const float side_avoid_track_radius = 0.15;
@@ -40,6 +43,8 @@
 
   const float front_avoid_limit = 0.1;
   const float front_avoid_detect_radius = 0.5;
+  
+  const float front_side_avoid_detect_radius = 0.4;
 
 // UDP WIFI
   const char* ssid = "MERCURY_2.4G_0122";
@@ -138,6 +143,7 @@
   IPAddress controller(192,168,1,52);
   IPAddress observer(192,168,1,51);
   IPAddress observer_2(192,168,1,61);
+  IPAddress observer_3(192,168,1,71);
 
   IPAddress gateway(192, 168, 1, 1);  
   IPAddress subnet(255, 255, 0, 0);
@@ -190,6 +196,20 @@ void loop(){
   // --------------------- UDP packet from Observer ---------------------
   receive_udp();
 
+  // --------- Observer 3 ---------
+  for (int i= 1; i<5; i++)
+  {
+    if (Udp.remoteIP()==observer_3)
+    {     
+      distance_front_left = parse_target_lat(1);
+      distance_front_right = parse_target_lat(16);
+
+      break;
+    }
+    receive_udp();
+  }
+
+  // --------- Observer 2 ---------
     for (int i= 1; i<5; i++)
   {
     if (Udp.remoteIP()==observer_2)
@@ -202,7 +222,8 @@ void loop(){
     }
     receive_udp();
   }
-  
+
+  // --------- Observer 1 ---------
   for (int i= 1; i<5; i++)
   {
     if (Udp.remoteIP()==observer)
@@ -476,88 +497,110 @@ void loop(){
   obstacle_scenario = 0;
   obstacle_side = 0;
 // ------------ Scienario 1: Front obstacle ------------
-  if ((distance_front<front_avoid_detect_radius)&& (distance_left>side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
+  if (((distance_front<front_avoid_detect_radius)||(distance_front_left<front_side_avoid_detect_radius)||(distance_front_left<front_side_avoid_detect_radius))
+      && (distance_left>side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
   {
-    obstacle_scenario = 1;
+    if (distance_front_right < distance_front_left)
+      obstacle_scenario = 2;
+    else
+      obstacle_scenario = 1;
     obstacle_side = 0;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
-    {
-      //if (yaw_error > 0)
-      {
-        yaw_error = yaw_error + (3*pi/4);
-      }
-      //else
-      {
-      //  yaw_error = yaw_error - (pi/2);
-      }
-    }
+    front_detect = 1;
   }
 
 // ------------ Scienario 2: Front and side obstacle ------------ 
-  if ((distance_front<front_avoid_detect_radius) && (distance_left<side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
+  if (((distance_front<front_avoid_detect_radius)||(distance_front_left<front_side_avoid_detect_radius)||(distance_front_left<front_side_avoid_detect_radius))
+      && (distance_left<side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
   {
     obstacle_scenario = 2;
     obstacle_side = 1;
-    yaw_error = yaw_error + (pi/2);
+    front_detect = 1;
   }
   
-  if ((distance_front<front_avoid_detect_radius) && (distance_left>side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
+  if (((distance_front<front_avoid_detect_radius) || (distance_front_left<front_side_avoid_detect_radius) || (distance_front_left<front_side_avoid_detect_radius)) 
+      && (distance_left>side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 2;
     obstacle_side = 2;
-    yaw_error = yaw_error - (pi/2);
+    front_detect = 2;
   }
 
 // ------------ Scienario 3: Side obstacle ------------
-  if ((distance_front>front_avoid_detect_radius) && (distance_left<side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
+  if (((distance_front>front_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius))  
+      && (distance_left<side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
   {
     obstacle_scenario = 3;
     obstacle_side = 1;
-    //if ((yaw_error > -120)&&(yaw_error < 10))
+    front_detect = 0;
+    if ((yaw_error > -pi)&&(yaw_error < pi/4))
     {
       yaw_error = -(pi/4)*(distance_left - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
     }
   }
-    if ((distance_front>front_avoid_detect_radius) && (distance_left>side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
+  
+  if (((distance_front>front_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius)) 
+      && (distance_left>side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 3;
     obstacle_side = 2;
-    //if ((yaw_error > -10)&&(yaw_error < 120))
+    front_detect = 0;
+    if ((yaw_error > -pi/4)&&(yaw_error < pi))
     {
       yaw_error = (pi/4)*(distance_right - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
     }
   }
 
 // ------------ Scienario 4: Both sides obstacle ------------
-  if ((distance_front>front_avoid_detect_radius)&& (distance_left<side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
+  if (((distance_front>front_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius)) 
+      && (distance_left<side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 4;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
+    front_detect = 0;
+    if ((yaw_error > -3*pi/4)&&(yaw_error < 3*pi/4))
     {
       if (distance_left < distance_right)
       {
         obstacle_side = 1;
-        yaw_error = yaw_error + (pi/2);
+        yaw_error = -(pi/4)*(distance_left - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
       }
       else
       {
         obstacle_side = 2;
-        yaw_error = yaw_error - (pi/2);
+        yaw_error = (pi/4)*(distance_right - side_avoid_track_radius)/(side_avoid_detect_radius - side_avoid_track_radius);
       }
     }
   }
 
 // ------------ Scienario 5: Front and both sides obstacle ------------
-  if ((distance_front<front_avoid_detect_radius)&& (distance_left<side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
+  if (((distance_front<front_avoid_detect_radius) || (distance_front_left<front_side_avoid_detect_radius) || (distance_front_left<front_side_avoid_detect_radius)) 
+      && (distance_left<side_avoid_detect_radius) && (distance_right<side_avoid_detect_radius))
   {
     obstacle_scenario = 5;
     obstacle_side = 0;
-    //if ((yaw_error > -150)&&(yaw_error < 150))
+    front_detect = 1;
+  }
+
+// ------------ Scenario 6: No obstacle - Release trigger turn ------------
+  if (((distance_front>front_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius) && (distance_front_left>front_side_avoid_detect_radius))
+  && (distance_left>side_avoid_detect_radius) && (distance_right>side_avoid_detect_radius))
+  {
+    if ((yaw_error < -4*pi/5)||(yaw_error > 4*pi/5))
     {
-        yaw_error = yaw_error + (pi);
+      obstacle_scenario = 6;
+      obstacle_side = 0;
+      front_detect = 0;
     }
   }
-  
+
+// ------------ Triggered turn ------------
+  if (front_detect == 1)
+  {
+    yaw_error = yaw_error + (pi/2);
+  }
+  if (front_detect == 2)
+  {
+    yaw_error = yaw_error - (pi/2);
+  }
 
 // ----------------------------------------------- CONTROL FACTORS -----------------------------------------------    
   k_yaw_error = 1 / (1 + a*pow(yaw_error,2));                   // range 1 ~ 0
@@ -631,7 +674,8 @@ void loop(){
   }
 
   // Full stop
-  if ((distance_front < front_avoid_limit)||(distance_left < side_avoid_limit)||(distance_right < side_avoid_limit))
+  if (((distance_front < front_avoid_limit) || (distance_front_left < front_avoid_limit) || (distance_front_right < front_avoid_limit))
+      ||(distance_left < side_avoid_limit)||(distance_right < side_avoid_limit))
   {
     thrust = 0;
   }
