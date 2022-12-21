@@ -1,0 +1,9 @@
+import QtQuick 2.15
+
+Rectangle{
+    id:rectangleStopWatch
+    color: 'white'
+    anchors{
+        left: rectang
+    }
+}
