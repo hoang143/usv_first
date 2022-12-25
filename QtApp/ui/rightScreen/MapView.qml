@@ -213,8 +213,8 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-//             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
              zoomLevel: 18
              Line{
                  id: line
