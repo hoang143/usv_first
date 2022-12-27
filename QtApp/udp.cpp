@@ -262,6 +262,11 @@ float udp::qml_read_depth()                // Index 37
 {
     return depth;
 }
+float udp::qml_read_depth_confidence()     // Index 38
+{
+    return depth_confidence;
+}
+
 // ------ DERIVED ------
 float udp::qml_read_battery_percentage()
 {
