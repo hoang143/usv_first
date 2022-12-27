@@ -45,6 +45,7 @@ class udp :public QObject
     Q_PROPERTY(float zigzagStep READ qml_read_zigzag_step NOTIFY onReceivedPacket)
     Q_PROPERTY(float lookAhead READ qml_read_look_ahead NOTIFY onReceivedPacket)
     Q_PROPERTY(float voltageBat READ qml_read_voltage_bat NOTIFY onReceivedPacket)
+    Q_PROPERTY(float depth READ qml_read_depth NOTIFY onReceivedPacket)
 
     // ------ DERIVED STATES ------
     Q_PROPERTY(float batteryPercentage READ qml_read_battery_percentage NOTIFY onReceivedPacket)
@@ -179,6 +180,8 @@ private:
     float qml_read_zigzag_step();          // Index 27
     float qml_read_look_ahead();           // Index 28
     float qml_read_voltage_bat();          // Index 29
+    float qml_read_depth();                // Index 37
+
     // ------ DERIVED ------
     float qml_read_battery_percentage();
     float qml_read_distance_to_home();
@@ -336,6 +339,15 @@ private:
         float zigzag_step = 0;          // Index 27
         float look_ahead = 0;           // Index 28
         float voltage_bat = 0;          // Index 29
+        float obstacle_scenario = 0;    // Index 30
+        float obstacle_side = 0;        // Index 31
+        float distance_front = 0;       // Index 32
+        float distance_left = 0;        // Index 33
+        float distance_right = 0;       // Index 34
+        float distance_front_left = 0;  // Index 35
+        float distance_front_right = 0; // Index 36
+        float depth = 0;                // Index 37
+        float depth_confidence = 0;     // Index 38
 
     // ------ Derived variables ------
         float battery_percentage = 0;

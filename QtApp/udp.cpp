@@ -64,6 +64,15 @@ QString udp::receivePacket()
         zigzag_step = usv_data.at(27).toFloat();
         look_ahead = usv_data.at(28).toFloat();
         voltage_bat = usv_data.at(29).toFloat();
+        obstacle_scenario = usv_data.at(30).toFloat();
+        obstacle_side = usv_data.at(31).toFloat();
+        distance_front = usv_data.at(32).toFloat();
+        distance_left = usv_data.at(33).toFloat();
+        distance_right = usv_data.at(34).toFloat();
+        distance_front_left = usv_data.at(35).toFloat();
+        distance_front_right = usv_data.at(36).toFloat();
+        depth = usv_data.at(37).toFloat();
+        depth_confidence = usv_data.at(38).toFloat();
 
         // Derived
         battery_percentage = 100*(voltage_bat-11.7)/(13.7-11.7);
@@ -248,6 +257,10 @@ float udp::qml_read_look_ahead()           // Index 28
 float udp::qml_read_voltage_bat()          // Index 29
 {
     return voltage_bat;
+}
+float udp::qml_read_depth()                // Index 37
+{
+    return depth;
 }
 // ------ DERIVED ------
 float udp::qml_read_battery_percentage()
