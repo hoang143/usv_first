@@ -27,8 +27,8 @@ MapQuickItem {
     property alias text: txt.text
     //signal clicked()
     sourceItem: Rectangle {
-        width: 30
-        height: 40
+        width: 60
+        height: 70
         color: "transparent"  //xoa phong
         Image {
             anchors.fill: parent

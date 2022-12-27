@@ -18,7 +18,6 @@ Rectangle{
             topMargin: parent.height * .01
             bottom: parent.bottom
             bottomMargin: parent.height *.01
-
         }
         width: parent.width * .69
         height: parent.height * .98
@@ -36,7 +35,6 @@ Rectangle{
                 }
             }
         }
-
 
         MessageDialog {
             id: messagebox
@@ -281,9 +279,6 @@ Rectangle{
                                   messagebox.visible = true
                               }
                           }
-
-                          // writing cordinates to cpp files
-                          // map2cpp.writeCordinate2cpp(coord.latitude.toFixed(6),coord.longitude.toFixed(6))
           }
           }
     }

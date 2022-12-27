@@ -64,5 +64,13 @@
         <file>ui/assets/stop0.png</file>
         <file>ui/assets/markerUSV1.png</file>
         <file>ui/assets/markerUSV2.png</file>
+        <file>ui/rightScreenDepthSurvey/DepthChart2D.qml</file>
+        <file>ui/rightScreenDepthSurvey/DepthChart3D.qml</file>
+        <file>ui/rightScreenDepthSurvey/Line.qml</file>
+        <file>ui/rightScreenDepthSurvey/LineUSV.qml</file>
+        <file>ui/rightScreenDepthSurvey/Marker.qml</file>
+        <file>ui/rightScreenDepthSurvey/MarkerHome.qml</file>
+        <file>ui/rightScreenDepthSurvey/MarkerUSV.qml</file>
+        <file>ui/rightScreenDepthSurvey/VelocityGauge.qml</file>
     </qresource>
 </RCC>

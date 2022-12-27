@@ -9,23 +9,23 @@ MapQuickItem {
         width: 60
         height: 60
         color: "transparent"  //xoa phong
+
         Image {
             anchors.fill: parent
-            source: "qrc:/ui/assets/markerUSV1.png"
+            source: "qrc:/ui/assets/markerUSV2.png"
             fillMode: Image.PreserveAspectFit
             sourceSize: Qt.size(parent.width, parent.height)
-
-            transform: Rotation{
-                id: rotateImagePhoto
-                angle: usvMapAngle
+            rotation: usvMapAngle
 
         }
+
         Text {
             id: txt
             color: "white"
             anchors.bottom: parent.top
             // anchors.fill: parent
         }
+
         MouseArea{
             z:10
             anchors.fill: parent

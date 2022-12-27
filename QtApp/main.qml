@@ -25,7 +25,8 @@ Window {
 // -------------- Properties --------------
     property real thrustManual: 0
     property real desireYawManual: 0
-
+    property int indexDepthChart2D: 0
+    property double yDepthChart2D: 2
     property int i: 0
     property var lstLat:[]
     property var lstLng:[]

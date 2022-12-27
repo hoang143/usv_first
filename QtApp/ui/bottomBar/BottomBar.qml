@@ -130,7 +130,6 @@ Rectangle{
             source: "qrc:/ui/assets/usvIconBottomBar1.png"
         }
 
-
         MouseArea{
             property int state: 0
             anchors.fill: parent
