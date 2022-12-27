@@ -46,6 +46,7 @@ class udp :public QObject
     Q_PROPERTY(float lookAhead READ qml_read_look_ahead NOTIFY onReceivedPacket)
     Q_PROPERTY(float voltageBat READ qml_read_voltage_bat NOTIFY onReceivedPacket)
     Q_PROPERTY(float depth READ qml_read_depth NOTIFY onReceivedPacket)
+    Q_PROPERTY(float depthConfidence READ qml_read_depth_confidence NOTIFY onReceivedPacket)
 
     // ------ DERIVED STATES ------
     Q_PROPERTY(float batteryPercentage READ qml_read_battery_percentage NOTIFY onReceivedPacket)
@@ -180,7 +181,9 @@ private:
     float qml_read_zigzag_step();          // Index 27
     float qml_read_look_ahead();           // Index 28
     float qml_read_voltage_bat();          // Index 29
+
     float qml_read_depth();                // Index 37
+    float qml_read_depth_confidence();     // Index 38
 
     // ------ DERIVED ------
     float qml_read_battery_percentage();
