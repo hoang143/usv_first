@@ -21,7 +21,11 @@ Rectangle{
         interval: 1000; running: true; repeat: true
         onTriggered:{
             mainwindow.indexDepthChart2D += 1
-            lineDepthChart2D.append(indexDepthChart2D + 4,yDepthChart2D)
+            lineDepthChart2D.append(indexDepthChart2D,udp.depth)
+            if(indexDepthChart2D > 8){
+                depth2Daxisx.min = indexDepthChart2D -8
+                depth2Daxisx.max = indexDepthChart2D + 1
+            }
         }
     }
 
@@ -49,8 +53,8 @@ Rectangle{
 
         ValueAxis {
             id: depth2Daxisx
-            min: indexDepthChart2D
-            max: indexDepthChart2D + 8
+            min: 0
+            max: 8
             gridVisible: true
             color: "black"
             labelsColor: "black"

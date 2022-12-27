@@ -9,7 +9,7 @@ import udp.to.qml 1.0
 import QtQml 2.15
 
 Rectangle{
-    id: usvStatesDisplayDepthSurvey
+    id: usvStatesDisplayDepthSurveyDepthSurvey
     color: 'yellow'
     anchors{
         left: mapViewDepthSurvey.right
@@ -111,7 +111,7 @@ Rectangle{
                         seconds += 1
 
                         mainwindow.secPulse()
-                        usvStatesDisplay.secPulse()
+                        usvStatesDisplayDepthSurveyDepthSurvey.secPulse()
                     }
                 }
                 Timer {
@@ -119,7 +119,7 @@ Rectangle{
                     interval: 1; running: true; repeat: true
 
                     onTriggered:{
-                        usvStatesDisplay.miliPulse()
+                        usvStatesDisplayDepthSurveyDepthSurvey.miliPulse()
                     }
                 }
             }
@@ -285,17 +285,17 @@ Rectangle{
         width: parent.width
         height: parent.height *.08
         Row{
-            spacing: usvStatesDisplay.width * .03
+            spacing: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
             anchors{
                 fill: parent
-                leftMargin: usvStatesDisplay.width * .06
+                leftMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .06
             }
             Label{
                 text: "Progress"
                 anchors{
                     verticalCenter: parent.verticalCenter
                 }
-                font.pixelSize: usvStatesDisplay.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
                 font.bold: true
             }
             ProgressBar{
@@ -305,10 +305,10 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: trackingProgressLcd.left
-                    rightMargin: usvStatesDisplay.width * .03
+                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
                 }
-                width: usvStatesDisplay.width * .4
-                height: usvStatesDisplay.height * .03
+                width: usvStatesDisplayDepthSurveyDepthSurvey.width * .4
+                height: usvStatesDisplayDepthSurveyDepthSurvey.height * .03
                 value: 100*udp.currentTarget/(udp.stepNo*2)
             }
             Label{
@@ -318,9 +318,9 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: parent.right
-                    rightMargin: usvStatesDisplay.width * .05
+                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .05
                 }
-                font.pixelSize: usvStatesDisplay.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
                 font.bold: false
             }
 
@@ -352,7 +352,7 @@ Rectangle{
                 bottomMargin: compassGauge.height * .35
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplay.height *.021
+            font.pixelSize:usvStatesDisplayDepthSurveyDepthSurvey.height *.021
             font.bold: false
         }
         Label{
@@ -364,7 +364,7 @@ Rectangle{
                 bottomMargin: compassGauge.height * .17
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplay.height *.05
+            font.pixelSize:usvStatesDisplayDepthSurvey.height *.05
             font.bold: false
         }
     }
@@ -391,7 +391,7 @@ Rectangle{
         property real locationDifference : 0
 
         Connections{
-            target: usvStatesDisplay
+            target: usvStatesDisplayDepthSurvey
             onSecPulse:{
                 velocityGauge.locationDifference = codToMeter(udp.usvLat,udp.usvLng,usvLatPrev,usvLngPrev,1)
                 if (velocityGauge.locationDifference > 10)
@@ -411,7 +411,7 @@ Rectangle{
                 bottomMargin: velocityGauge.height * .15
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplay.height *.05
+            font.pixelSize:usvStatesDisplayDepthSurvey.height *.05
             font.bold: false
         }
         Label{
@@ -422,7 +422,7 @@ Rectangle{
                 bottomMargin: velocityGauge.height * .34
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplay.height *.021
+            font.pixelSize:usvStatesDisplayDepthSurvey.height *.021
             font.bold: false
         }
     }

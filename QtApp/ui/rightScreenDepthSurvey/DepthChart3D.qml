@@ -21,41 +21,26 @@ Rectangle{
         id:timerDepthChart3D
         interval: 1000; running: true; repeat: true
         onTriggered:{
-
-            mainwindow.indexDepthChart2D += 1
-            dataModel.append({"Longitude":indexDepthChart2D + 4,"Latitude": yDepthChart2D,"Depth": 1})
+            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.usvLat,"Depth": udp.depth})
         }
     }
 
-    ValueAxis {
-        id: depth3DaxisX
-        min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Longitude"
+    ValueAxis3D {
+        id: depth3DaxisX //latitude
+        title: "Latitude"
+        titleVisible: true
     }
-    ValueAxis {
-        id: depth3DaxisY
+    ValueAxis3D {
+        id: depth3DaxisY // depth
         min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Latitude"
+        max: 7
+        title: "Depth"
+        titleVisible: true
     }
-    ValueAxis {
-        id: depth3DaxisZ
-        min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Depth(m)"
+    ValueAxis3D {
+        id: depth3DaxisZ //longitude
+        title: "Longitude"
+        titleVisible: true
     }
 
     Scatter3D {
