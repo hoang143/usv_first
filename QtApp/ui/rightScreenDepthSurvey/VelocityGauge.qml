@@ -9,7 +9,7 @@ import udp.to.qml 1.0
 import QtQml 2.15
 
 Rectangle{
-    id: usvStatesDisplayDepthSurveyDepthSurvey
+    id: usvStatesDisplayDepthSurvey
     color: 'yellow'
     anchors{
         left: mapViewDepthSurvey.right
@@ -111,7 +111,7 @@ Rectangle{
                         seconds += 1
 
                         mainwindow.secPulse()
-                        usvStatesDisplayDepthSurveyDepthSurvey.secPulse()
+                        usvStatesDisplayDepthSurvey.secPulse()
                     }
                 }
                 Timer {
@@ -119,7 +119,7 @@ Rectangle{
                     interval: 1; running: true; repeat: true
 
                     onTriggered:{
-                        usvStatesDisplayDepthSurveyDepthSurvey.miliPulse()
+                        usvStatesDisplayDepthSurvey.miliPulse()
                     }
                 }
             }
@@ -285,17 +285,17 @@ Rectangle{
         width: parent.width
         height: parent.height *.08
         Row{
-            spacing: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
+            spacing: usvStatesDisplayDepthSurvey.width * .03
             anchors{
                 fill: parent
-                leftMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .06
+                leftMargin: usvStatesDisplayDepthSurvey.width * .06
             }
             Label{
                 text: "Progress"
                 anchors{
                     verticalCenter: parent.verticalCenter
                 }
-                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurvey.height * .025
                 font.bold: true
             }
             ProgressBar{
@@ -305,10 +305,10 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: trackingProgressLcd.left
-                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
+                    rightMargin: usvStatesDisplayDepthSurvey.width * .03
                 }
-                width: usvStatesDisplayDepthSurveyDepthSurvey.width * .4
-                height: usvStatesDisplayDepthSurveyDepthSurvey.height * .03
+                width: usvStatesDisplayDepthSurvey.width * .4
+                height: usvStatesDisplayDepthSurvey.height * .03
                 value: 100*udp.currentTarget/(udp.stepNo*2)
             }
             Label{
@@ -318,9 +318,9 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: parent.right
-                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .05
+                    rightMargin: usvStatesDisplayDepthSurvey.width * .05
                 }
-                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurvey.height * .025
                 font.bold: false
             }
 
@@ -352,7 +352,7 @@ Rectangle{
                 bottomMargin: compassGauge.height * .35
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplayDepthSurveyDepthSurvey.height *.021
+            font.pixelSize:usvStatesDisplayDepthSurvey.height *.021
             font.bold: false
         }
         Label{

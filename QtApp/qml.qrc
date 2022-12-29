@@ -72,5 +72,7 @@
         <file>ui/rightScreenDepthSurvey/MarkerHome.qml</file>
         <file>ui/rightScreenDepthSurvey/MarkerUSV.qml</file>
         <file>ui/rightScreenDepthSurvey/VelocityGauge.qml</file>
+        <file>ui/rightScreenDepthSurvey/LineZigzag.qml</file>
+        <file>ui/rightScreen/LineZigzag.qml</file>
     </qresource>
 </RCC>

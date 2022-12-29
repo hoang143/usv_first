@@ -26,7 +26,6 @@ Rectangle{
             interval: 1000; running: true; repeat: true
 
             onTriggered:{
-                markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 if(udp.usvLat != 0) {
                     countLineUSV +=1
                     markerUSV.clear()
@@ -106,12 +105,17 @@ Rectangle{
                 text: qsTr("Delete All")
                 onClicked: {
                     lst.clear()
-                    for(i = count ; i >=-1; i --){
-                        line.removeCoordinate(count-1)
-                        mark_.remove(count-1)
+                    for(i = count ; i >-1; i --){
+                        line.removeCoordinate(count)
+                        mark_.remove(count)
                         count -=1
                     }
-
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
                     count = 0
                 }
             }
@@ -211,14 +215,17 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+//             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
              zoomLevel: 18
              Line{
                  id: line
              }
              LineUSV{
                  id:lineUSV
+             }
+             LineZigzag{
+                 id:lineZigzag
              }
 
              MapItemView{
@@ -257,8 +264,8 @@ Rectangle{
                           lst.append({"coords":coordinate})
                           count = lst.count
                           cout_dele = count;
-                          lstLat[count] = latMouse
-                          lstLng[count] = lngMouse
+                          mainwindow.lstLat[count] = latMouse
+                          mainwindow.lstLng[count] = lngMouse
                           line.addCoordinate(coordinate)
                           distance = codToMeter(lstLat[count], lstLng[count], lstLat[count - 1], lstLng[count - 1],count)
                           if (count == 1)
@@ -270,8 +277,18 @@ Rectangle{
                                   messagebox.visible = true
                           }
                           if(selectAutoModeGcs == 2){
-                              if(count >= 4) {
+                              if(count == 4) {
                                   messagebox.visible = true
+                                  line.addCoordinate(QtPositioning.coordinate(lstLat[1], lstLng[1]))
+                                  getLstLatLng()
+                                  getLstZigzag()
+                                  for(i = 0; i < lstLatZigzag.length; i++){
+                                  lineZigzag.addCoordinate(QtPositioning.coordinate(lstLatZigzag[i], lstLngZigzag[i]))
+                                  }
+                                  if(count > 4){
+                                      mark_.remove(count - 1)
+                                      line.removeCoordinate(count)
+                                  }
                                   }
                           }
                           if (selectAutoModeGcs == 3){

@@ -28,8 +28,17 @@ Window {
     property int indexDepthChart2D: 0
     property double yDepthChart2D: 2
     property int i: 0
+    property int step: 10
+    property var lstLatZigzag:[]
+    property var lstLngZigzag:[]
+    property var lstLatZigzag12:[]
+    property var lstLngZigzag12:[]
+    property var lstLatZigzag34:[]
+    property var lstLngZigzag34:[]
     property var lstLat:[]
     property var lstLng:[]
+    property int countZigzagPoint12:Math.floor(codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)/step)
+    //property int countZigzagPoint34: Math.floor(codToMeter(lstLat[3], lstLng[3], lstLat[4], lstLng[4], count)/step)
     property var distance
     property real targetLat1Mode2Default: 0
     property real targetLng1Mode2Default: 0
@@ -64,6 +73,36 @@ Window {
         }
         else return 0
     }
+
+    function getLstLatLng(){
+        for (i = 0; i <countZigzagPoint12; i++){
+            lstLatZigzag12[i] = lstLat[1] + step*((lstLat[2] - lstLat[1]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
+            lstLngZigzag12[i] = lstLng[1] + step*((lstLng[2] - lstLng[1]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
+            lstLatZigzag34[i] = lstLat[4] + step*((lstLat[3] - lstLat[4]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
+            lstLngZigzag34[i] = lstLng[4] + step*((lstLng[3] - lstLng[4]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
+//            lstLatZigzag34[i] = lstLat[4] + step*((lstLat[3] - lstLat[4]) / countZigzagPoint12) * i
+//            lstLngZigzag34[i] = lstLng[4] + step*((lstLng[3] - lstLng[4]) / countZigzagPoint12) * i
+
+        }
+//        console.log(lstLatZigzag12[0])
+//        console.log(lstLatZigzag12[countZigzagPoint12-1])
+//            console.log(lstLat[1] + ", " + lstLat[2])
+//            console.log(lstLatZigzag12.length + ", " + countZigzagPoint12)
+//        console.log((lstLat[2] - lstLat[1]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count))
+    }
+
+    function getLstZigzag(){
+        for(i = 0; i < countZigzagPoint12; i++){
+            lstLatZigzag[2*i] = lstLatZigzag12[i]
+            lstLngZigzag[2*i] = lstLngZigzag12[i]
+        }
+        for(i = 0; i < countZigzagPoint12; i++){
+            lstLatZigzag[2*i + 1] = lstLatZigzag34[i]
+            lstLngZigzag[2*i + 1] = lstLngZigzag34[i]
+        }
+//        console.log(lstLatZigzag[0])
+    }
+
 
     ListModel{
         id:lstUSV

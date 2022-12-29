@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import QtDataVisualization 1.2
 import QtQml.Models 2.1
 import QtCharts 2.2
@@ -21,7 +21,7 @@ Rectangle{
         id:timerDepthChart3D
         interval: 1000; running: true; repeat: true
         onTriggered:{
-            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.usvLat,"Depth": udp.depth})
+            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.depth,"Depth": udp.usvLat})
         }
     }
 
@@ -45,6 +45,7 @@ Rectangle{
 
     Scatter3D {
         id:scatterDepthChart3D
+        antialiasing: true
         width: parent.width
         height: parent.height
         axisX: depth3DaxisX

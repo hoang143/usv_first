@@ -26,7 +26,6 @@ Rectangle{
             interval: 1000; running: true; repeat: true
 
             onTriggered:{
-                markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 if(udp.usvLat != 0) {
                     countLineUSV +=1
                     markerUSV.clear()
@@ -107,8 +106,8 @@ Rectangle{
                 onClicked: {
                     lst.clear()
                     for(i = count ; i >=-1; i --){
-                        line.removeCoordinate(count-1)
-                        mark_.remove(count-1)
+                        line.removeCoordinate(count)
+                        mark_.remove(count)
                         count -=1
                     }
 
@@ -139,8 +138,6 @@ Rectangle{
             width: parent.width * .25
             height: deleteAllButton.height
             text: qsTr("Delete")
-            property var latMouse1
-            property var lngMouse1
             onClicked:{
                 lst.clear()
                 //mapview.clearMapItems()
@@ -215,14 +212,17 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+//             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
              zoomLevel: 18
              Line{
                  id: line
              }
              LineUSV{
                  id:lineUSV
+             }
+             LineZigzag{
+                 id: lineZigzag
              }
 
              MapItemView{
@@ -276,6 +276,12 @@ Rectangle{
                           if(selectAutoModeGcs == 2){
                               if(count >= 4) {
                                   messagebox.visible = true
+                                  line.addCoordinate(QtPositioning.coordinate(lstLat[1], lstLng[1]))
+                                  getLstLatLng()
+                                  getLstZigzag()
+                                  for(i = 0; i < lstLatZigzag.length; i++){
+                                  lineZigzag.addCoordinate(QtPositioning.coordinate(lstLatZigzag[i], lstLngZigzag[i]))
+                                  }
                                   }
                           }
                           if (selectAutoModeGcs == 3){

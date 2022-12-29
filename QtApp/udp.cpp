@@ -88,7 +88,7 @@ QString udp::receivePacket()
 //    qDebug()<<temp1.setNum(moment);
 //    qDebug()<<temp1.setNum(speed_1);
 //    qDebug()<<temp1.setNum(speed_2);
-//    qDebug()<<temp1.setNum(usv_yaw);
+    //qDebug()<<temp1.setNum(usv_yaw);
 //    qDebug()<<temp1.setNum(desire_yaw);
 //    qDebug()<<temp1.setNum(yaw_error);
 //    qDebug()<<temp1.setNum(distance);
