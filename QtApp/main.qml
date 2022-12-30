@@ -5,6 +5,7 @@ import udp.to.qml 1.0
 import QtLocation 5.15
 import QtPositioning 5.6
 import QtQml 2.0
+import QtMultimedia 5.12
 import "ui/bottomBar"
 import "ui/rightScreen"
 import "ui/leftScreen"
@@ -20,7 +21,6 @@ Window {
     height: 720
     visible: true
     title: qsTr("Ground Station")
-
 
 // -------------- Properties --------------
     property real thrustManual: 0

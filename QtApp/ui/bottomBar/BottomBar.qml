@@ -176,7 +176,8 @@ Rectangle{
             anchors.fill: parent
             onClicked: {
                 if(state % 2 == 0) {
-                    passwordScreen.visible = true
+                    passwordScreen.visible = false
+                    rightScreenWelcome.visible = true
                     parent.color = 'pink'
                 }
                 else {
