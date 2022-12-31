@@ -10,7 +10,7 @@ import QtQml 2.15
 
 Rectangle{
     id: usvStatesDisplay
-    color: 'yellow'
+    color: colorTheme
     anchors{
         left: rectangleMap.right
         leftMargin: parent.width *.01
@@ -35,7 +35,7 @@ Rectangle{
 
     Rectangle{
         id:rectangleStopWatch
-        color: 'pink'
+        color: colorBackground
         anchors{
             left: parent.left
             right: parent.right
@@ -128,7 +128,7 @@ Rectangle{
         Rectangle{
             id:rectangleBattery
             border.width: 7
-            color: 'pink'
+            color: colorTheme
             anchors{
                 right: parent.right
                 rightMargin: parent.width * .22
@@ -191,7 +191,7 @@ Rectangle{
     }
     Rectangle{
         id: homeLocationDisplay
-        color: 'orange'
+        color: colorTheme
         anchors{
             top: rectangleStopWatch.bottom
             topMargin: 0
@@ -277,7 +277,7 @@ Rectangle{
         }
     }
     Rectangle{
-        color: "pink"
+        color: colorBackground
         anchors{
             top: homeLocationDisplay.bottom
             topMargin: 0

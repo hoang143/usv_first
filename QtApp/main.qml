@@ -54,7 +54,8 @@ Window {
     property int cout_dele: 0
     property bool stateStopWatch: false
     property int usvMapAngle: udp.usvYaw
-    property string mapStyle: "mapbox://styles/mapbox/streets-v12"
+    property string colorTheme:"yellow"
+    property string colorBackground:"white"
 
     // -------------- Signals --------------
     signal secPulse()
@@ -80,15 +81,7 @@ Window {
             lstLngZigzag12[i] = lstLng[1] + step*((lstLng[2] - lstLng[1]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
             lstLatZigzag34[i] = lstLat[4] + step*((lstLat[3] - lstLat[4]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
             lstLngZigzag34[i] = lstLng[4] + step*((lstLng[3] - lstLng[4]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count)) * i
-//            lstLatZigzag34[i] = lstLat[4] + step*((lstLat[3] - lstLat[4]) / countZigzagPoint12) * i
-//            lstLngZigzag34[i] = lstLng[4] + step*((lstLng[3] - lstLng[4]) / countZigzagPoint12) * i
-
         }
-//        console.log(lstLatZigzag12[0])
-//        console.log(lstLatZigzag12[countZigzagPoint12-1])
-//            console.log(lstLat[1] + ", " + lstLat[2])
-//            console.log(lstLatZigzag12.length + ", " + countZigzagPoint12)
-//        console.log((lstLat[2] - lstLat[1]) / codToMeter(lstLat[1], lstLng[1], lstLat[2], lstLng[2], count))
     }
 
     function getLstZigzag(){
@@ -100,7 +93,6 @@ Window {
             lstLatZigzag[2*i + 1] = lstLatZigzag34[i]
             lstLngZigzag[2*i + 1] = lstLngZigzag34[i]
         }
-//        console.log(lstLatZigzag[0])
     }
 
 

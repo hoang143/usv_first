@@ -85,21 +85,21 @@ Rectangle{
 
         Rectangle{
             id:rectangleDeleteAllButton
-            color: 'pink'
+            color: colorTheme
             anchors{
                 bottom: parent.bottom
                 left: parent.left
             }
             z:10
-            width: parent.width * .8
-            height: parent.width * .05
+            width: parent.width * 1
+            height: parent.width * .04
             Button{
                 id: deleteAllButton
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                 }
-                width:rectangleDeleteAllButton.width *.25
+                width:rectangleDeleteAllButton.width *.15
                 height:rectangleDeleteAllButton.height
 
                 text: qsTr("Delete All")
@@ -128,6 +128,7 @@ Rectangle{
                 }
                 z:10
                 height: parent.height
+                width: parent.width *.15
                 checked: true
                 text: qsTr("Stream Data")
         }
@@ -140,7 +141,7 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .15
             height: deleteAllButton.height
             text: qsTr("Delete")
             property var latMouse1
@@ -165,7 +166,7 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .15
             height: deleteAllButton.height
             text: qsTr("Delete USV Line")
             onClicked:{
@@ -175,29 +176,6 @@ Rectangle{
                 }
 
                 countLineUSV = 0
-            }
-        }
-
-        Button{
-            id: changeMapView
-            anchors{
-                bottom: parent.bottom
-                left: deleteLineUSV.right
-                leftMargin: parent.width * .01
-            }
-            z:10
-            width: parent.width * .25
-            height: deleteAllButton.height
-            text: qsTr("Change Style Map")
-            property int state: 0
-            onClicked: {
-                if(state % 2 == 0) {
-                    mainwindow.mapStyle = "mapbox://styles/danieltrieu/cl4b0zif1006215p6vd84a4o3"
-                }
-                else {
-                    mainwindow.mapStyle = "mapbox://styles/mapbox/streets-v12"
-                }
-                state += 1
             }
         }
         }

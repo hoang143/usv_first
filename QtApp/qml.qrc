@@ -76,5 +76,6 @@
         <file>ui/rightScreen/LineZigzag.qml</file>
         <file>ui/assets/WelcomeScreen.mp4</file>
         <file>ui/assets/WelcomeScreen1.mp4</file>
+        <file>ui/assets/homeLocation.png</file>
     </qresource>
 </RCC>

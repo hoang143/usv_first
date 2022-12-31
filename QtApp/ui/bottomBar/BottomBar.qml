@@ -12,7 +12,7 @@ Rectangle{
         right: parent.right
         bottom: parent.bottom
     }
-    color: "yellow"
+    color: colorTheme
     height: parent.height / 20
     property int countCompass:0
     property int countGPS:0
@@ -67,7 +67,7 @@ Rectangle{
     }
     Rectangle{
         id:rectangleSettingIcon
-        color: "yellow"
+        color: colorTheme
         anchors{
             left: parent.left
             leftMargin: 30
@@ -96,12 +96,12 @@ Rectangle{
                 if(state % 2 == 0) {
                     leftScreen.visible = false
                     leftScreenSetting.visible = true
-                    parent.color = 'white'
+                    parent.color = colorBackground
                 }
                 else {
                     leftScreen.visible = true
                     leftScreenSetting.visible = false
-                    parent.color = "yellow"
+                    parent.color = colorTheme
                 }
                 state += 1
             }
@@ -109,7 +109,7 @@ Rectangle{
 }
     Rectangle{
         id:rectangleHomeBottomBar
-        color: "yellow"
+        color: colorTheme
         anchors{
             right: parent.right
             rightMargin: parent.width * .1
@@ -136,11 +136,11 @@ Rectangle{
             onClicked: {
                 if(state % 2 == 0) {
                     devView.visible = true
-                    parent.color = 'pink'
+                    parent.color = colorBackground
                 }
                 else {
                     devView.visible = false
-                    parent.color = "orange"
+                    parent.color = colorTheme
                 }
                 state += 1
             }
@@ -149,7 +149,7 @@ Rectangle{
 
     Rectangle{
         id:rectangleSleepBottomBar
-        color: "yellow"
+        color: colorTheme
         anchors{
             right: parent.right
             rightMargin: parent.width * .03
@@ -178,11 +178,11 @@ Rectangle{
                 if(state % 2 == 0) {
                     passwordScreen.visible = false
                     rightScreenWelcome.visible = true
-                    parent.color = 'pink'
+                    parent.color = colorBackground
                 }
                 else {
                     passwordScreen.visible = false
-                    parent.color = "orange"
+                    parent.color = colorTheme
                 }
                 state += 1
             }
