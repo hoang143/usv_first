@@ -135,11 +135,13 @@ Rectangle{
             anchors.fill: parent
             onClicked: {
                 if(state % 2 == 0) {
-                    devView.visible = true
+                    passwordScreenDevView.visible = true
+//                    devView.visible = true
                     parent.color = colorBackground
                 }
                 else {
                     devView.visible = false
+                    passwordScreenDevView.visible = false
                     parent.color = colorTheme
                 }
                 state += 1
@@ -176,12 +178,12 @@ Rectangle{
             anchors.fill: parent
             onClicked: {
                 if(state % 2 == 0) {
-                    passwordScreen.visible = false
-                    rightScreenWelcome.visible = true
+                    passwordScreen.visible = true
+                    rightScreenWelcome.visible = false
                     parent.color = colorBackground
                 }
                 else {
-                    passwordScreen.visible = false
+//                    passwordScreen.visible = false
                     parent.color = colorTheme
                 }
                 state += 1

@@ -56,6 +56,10 @@ Window {
     property int usvMapAngle: udp.usvYaw
     property string colorTheme:"yellow"
     property string colorBackground:"white"
+    property string password: "12345"
+    property string passwordDevView: "hoang"
+    property string mapStyle: "mapbox://styles/mapbox/streets-v12"
+
 
     // -------------- Signals --------------
     signal secPulse()
@@ -140,7 +144,8 @@ Window {
 
     RightScreenWelcome{
         id:rightScreenWelcome
-        visible: false
+        z:20
+        visible: true
     }
 
     PassWordScreen{
@@ -155,6 +160,11 @@ Window {
 
     DevView{
         id:devView
+        visible: false
+    }
+
+    PasswordScreenDevView{
+        id:passwordScreenDevView
         visible: false
     }
 }

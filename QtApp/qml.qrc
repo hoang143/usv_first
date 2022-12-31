@@ -77,5 +77,6 @@
         <file>ui/assets/WelcomeScreen.mp4</file>
         <file>ui/assets/WelcomeScreen1.mp4</file>
         <file>ui/assets/homeLocation.png</file>
+        <file>ui/passWord/PasswordScreenDevView.qml</file>
     </qresource>
 </RCC>

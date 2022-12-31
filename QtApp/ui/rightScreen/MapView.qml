@@ -38,9 +38,9 @@ Rectangle{
         MessageDialog {
             id: messagebox
             title:{
-                if(selectAutoModeGcs == 1) {qsTr("Mode " + selectAutoModeGcs + ": Single Target")}
-                else if(selectAutoModeGcs == 2) {qsTr("Mode " + selectAutoModeGcs + ": ZigZag ")}
-                else if(selectAutoModeGcs == 3)  {qsTr("Mode " + selectAutoModeGcs + ": Two Line(AB)")}
+                if(selectAutoModeGcs == 1) {qsTr("Mode 2: Single Target")}
+                else if(selectAutoModeGcs == 2) {qsTr("Mode 3: ZigZag ")}
+                else if(selectAutoModeGcs == 3)  {qsTr("Mode 1: Two Line(AB)")}
             }
 
             icon: StandardIcon.Question
