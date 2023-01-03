@@ -99,7 +99,6 @@ Window {
         }
     }
 
-
     ListModel{
         id:lstUSV
     }

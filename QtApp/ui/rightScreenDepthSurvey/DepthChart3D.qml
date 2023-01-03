@@ -15,7 +15,7 @@ Rectangle{
     }
     width: depthChart2D.width * 1.5
     height: parent.height * .5
-    color: "blue"
+    color: "transparent"
 
     Timer {
         id:timerDepthChart3D
@@ -29,6 +29,8 @@ Rectangle{
         id: depth3DaxisX //latitude
         title: "Latitude"
         titleVisible: true
+//        min: Math.min(lstLat[1], lstLat[2], lstLat[3], lstLat[4])
+//        max: Math.max(lstLat[1], lstLat[2], lstLat[3], lstLat[4])
     }
     ValueAxis3D {
         id: depth3DaxisY // depth
@@ -41,11 +43,13 @@ Rectangle{
         id: depth3DaxisZ //longitude
         title: "Longitude"
         titleVisible: true
+//        min: Math.min(lstLng[1], lstLng[2], lstLng[3], lstLng[4])
+//        max: Math.max(lstLng[1], lstLng[2], lstLng[3], lstLng[4])
     }
 
     Scatter3D {
         id:scatterDepthChart3D
-        antialiasing: true
+//        antialiasing: true
         width: parent.width
         height: parent.height
         axisX: depth3DaxisX
@@ -98,5 +102,7 @@ Rectangle{
         }
     }
 }
+
+
 
 

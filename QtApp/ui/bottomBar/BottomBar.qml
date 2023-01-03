@@ -17,9 +17,11 @@ Rectangle{
     property int countCompass:0
     property int countGPS:0
     property int countPacket:0
+    property int countDepth:0
     property var valCheckGPS
     property var valCheckCompass
     property var valCheckPacket
+    property var valCheckDepth
 
     function isPacketAvailable (valCheck){
         if(valCheckPacket == valCheck) {countPacket +=1}
@@ -51,6 +53,16 @@ Rectangle{
         else return true
 }
 
+    function isDepthAvailable (valCheck){
+        if(valCheckDepth == valCheck) {countDepth +=1}
+        else countDepth = 0
+        valCheckDepth = valCheck
+        if (countDepth > 50) {
+                return false
+        }
+        else return true
+}
+
     Timer {
         id:timerBottomBar
         interval: 100; running: true; repeat: true
@@ -63,6 +75,8 @@ Rectangle{
             else statusIndicatorGPS.active = false
             if(isCompassAvailable(udp.usvYaw)) statusIndicatorCompass.active = true
             else statusIndicatorCompass.active = false
+            if(isDepthAvailable(udp.usvYaw)) statusIndicatorDepth.active = true
+            else statusIndicatorDepth.active = false
         }
     }
     Rectangle{
@@ -110,11 +124,12 @@ Rectangle{
     Rectangle{
         id:rectangleHomeBottomBar
         color: colorTheme
-        anchors{
-            right: parent.right
-            rightMargin: parent.width * .1
-            verticalCenter: parent.verticalCenter
-        }
+//        anchors{
+//            right: parent.right
+//            rightMargin: parent.width * .1
+//            verticalCenter: parent.verticalCenter
+//        }
+        anchors.centerIn: parent
 
         height: parent.height
         width: parent.height * 1.3
@@ -153,8 +168,8 @@ Rectangle{
         id:rectangleSleepBottomBar
         color: colorTheme
         anchors{
-            right: parent.right
-            rightMargin: parent.width * .03
+            left: rectangleSettingIcon.right
+            leftMargin: parent.width * .03
             verticalCenter: parent.verticalCenter
         }
 
@@ -191,66 +206,94 @@ Rectangle{
         }
 }
 
+//    Text {
+//        id: statusIndicatorDepthText
+//        anchors{
+//            top: statusIndicatorConnected.bottom
+//            topMargin: parent.width * .01
+////            verticalCenter: parent.verticalCenter
+////            horizontalCenter: parent.horizontalCenter
+//        }
+//        font.pixelSize: parent.height * .2
+//        text: "Connected"
+//    }
+
     StatusIndicator {
             id: statusIndicatorConnected
-            anchors.centerIn: parent
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: parent.height *.2
+            }
+
             active: false
             color: "green"
         }
-    Text {
-        id: statusIndicatorConnectedText
-        anchors{
-            left: statusIndicatorConnected.right
-            leftMargin: parent.width * .01
-            verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
-        }
-        font.pixelSize: parent.height * .4
-        text: "Connected"
-    }
+//    Text {
+//        id: statusIndicatorConnectedText
+//        anchors{
+//            left: statusIndicatorConnected.right
+//            leftMargin: parent.width * .01
+//            verticalCenter: parent.verticalCenter
+//            horizontalCenter: parent.horizontalCenter
+//        }
+//        font.pixelSize: parent.height * .4
+//        text: "Connected"
+//    }
 
     StatusIndicator {
             id: statusIndicatorGPS
             anchors{
-                left: statusIndicatorConnectedText.right
-                leftMargin: parent.width * .15
+                right: statusIndicatorConnected.left
+                rightMargin: parent.height
                 verticalCenter: parent.verticalCenter
             }
 
             color: "green"
         }
-    Text {
-        id: statusIndicatorGPSText
-        anchors{
-            left: statusIndicatorGPS.right
-            leftMargin: parent.width * .01
-            verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
-        }
-        font.pixelSize: parent.height * .4
-        text: "GPS"
-    }
+//    Text {
+//        id: statusIndicatorGPSText
+//        anchors{
+//            left: statusIndicatorGPS.right
+//            leftMargin: parent.width * .01
+//            verticalCenter: parent.verticalCenter
+//            horizontalCenter: parent.horizontalCenter
+//        }
+//        font.pixelSize: parent.height * .4
+//        text: "GPS"
+//    }
 
     StatusIndicator {
             id: statusIndicatorCompass
             anchors{
-                left: statusIndicatorGPSText.right
-                leftMargin: parent.width * .39
+                right: statusIndicatorGPS.left
+                rightMargin: parent.height
                 verticalCenter: parent.verticalCenter
             }
             active: false
             color: "green"
         }
-    Text {
-        id: statusIndicatorCompassText
-        anchors{
-            left: statusIndicatorCompass.right
-            leftMargin: parent.width * .01
-            verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
+//    Text {
+//        id: statusIndicatorCompassText
+//        anchors{
+//            left: statusIndicatorCompass.right
+//            leftMargin: parent.width * .01
+//            verticalCenter: parent.verticalCenter
+//            horizontalCenter: parent.horizontalCenter
+//        }
+//        font.pixelSize: parent.height * .4
+//        text: "Compass"
+//    }
+
+    StatusIndicator {
+            id: statusIndicatorDepth
+            anchors{
+                right: statusIndicatorCompass.left
+                rightMargin: parent.height
+                verticalCenter: parent.verticalCenter
+            }
+            active: false
+            color: "green"
         }
-        font.pixelSize: parent.height * .4
-        text: "Compass"
-    }
 
 }

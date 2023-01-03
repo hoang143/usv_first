@@ -14,7 +14,7 @@ Rectangle{
     }
     width: parent.height * .5
     height: parent.height * .4
-    color: "black"
+    color: "transparent"
 
     Timer {
         id:timerDepthChart2D
@@ -30,15 +30,24 @@ Rectangle{
     }
 
     ChartView {
-//        title: "Depth over time (m)"
         anchors{
             centerIn: parent
         }
         width: parent.width * 1.1
         height: parent.height * 1.1
         antialiasing: true
-        backgroundColor: "white"
+        backgroundColor: "transparent"
 //        opacity: 0.5
+
+        Label{
+            id: depthLabel
+            anchors.centerIn: parent
+
+            text: qsTr(udp.depth + " m")
+//            font.bold: true
+            color: "blue"
+            font.pixelSize: parent.height *.07
+        }
 
         ValueAxis {
             id: depth2DaxisY
