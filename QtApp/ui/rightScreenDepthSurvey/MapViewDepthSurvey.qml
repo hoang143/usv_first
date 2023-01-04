@@ -21,6 +21,23 @@ Rectangle{
         }
         width: parent.width * .69
         height: parent.height * .98
+        property string textLogFile
+        property real countLogFile: 0
+
+        function saveFile(fileUrl, text) {
+            var request = new XMLHttpRequest();
+            request.open("PUT", fileUrl, false);
+            request.send(text);
+            return request.status;
+        }
+
+        FileDialog {
+            id: saveFileDialog
+            selectExisting: false
+            nameFilters: ["Text files (*.txt)", "All files (*)"]
+            onAccepted: saveFile(saveFileDialog.fileUrl, textLogFile)
+        }
+
         Timer {
             id:timerMapView
             interval: 1000; running: true; repeat: true
@@ -32,6 +49,17 @@ Rectangle{
                     lineUSV.addCoordinate(QtPositioning.coordinate(udp.usvLat, udp.usvLng))
                     markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 }
+            }
+        }
+
+        Timer {
+            id:timerLogFile
+            interval: 1000; running: false; repeat: true
+
+            onTriggered:{
+                console.log(textLogFile)
+                countLogFile += 1;
+                textLogFile = textLogFile + qsTr(countLogFile + ", " + udp.usvLat + ", " + udp.usvLng + ", " + udp.depth + ", " + udp.usvYaw + "\n")
             }
         }
 
@@ -195,6 +223,37 @@ Rectangle{
                     hideShowDepthChart.text = "Show Chart"
                 }
                 state += 1
+            }
+        }
+        Button{
+            property int state: 0
+            id: logFileButton
+            anchors{
+                bottom: parent.bottom
+                left: hideShowDepthChart.right
+                leftMargin: parent.width * .01
+            }
+            z:10
+            width: parent.width * .25
+            height: deleteAllButton.height
+            text: "Log File"
+            onClicked: {
+                state += 1
+                if(state % 2 != 0) {
+                    saveFileDialog.open()
+                    timerLogFile.running = true
+                    logFileButton.text = "Stop Log"
+//                    console.log(textLogFile)
+                }
+                else {
+                    saveFileDialog.close()
+                    timerLogFile.running = false
+                    textLogFile = ""
+                    countLogFile = 0
+                    logFileButton.text = "Log file"
+//                    console.log(textLogFile)
+                }
+
             }
         }
         }

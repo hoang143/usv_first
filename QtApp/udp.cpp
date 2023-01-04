@@ -81,7 +81,7 @@ QString udp::receivePacket()
     }
 
 
-//    qDebug()<<usv_data;
+    qDebug()<<usv_data;
 //    qDebug()<<temp1.setNum(auto_mode);
 //    qDebug()<<temp1.setNum(select_auto_mode);
 //    qDebug()<<temp1.setNum(thrust);
@@ -111,7 +111,7 @@ QString udp::receivePacket()
 //    qDebug()<<temp1.setNum(arrival_radius);
 //    qDebug()<<temp1.setNum(zigzag_step);
 //    qDebug()<<temp1.setNum(look_ahead);
-//    qDebug()<<temp1.setNum(voltage_bat);
+      qDebug()<<temp1.setNum(depth_confidence);
 
     emit onReceivedPacket();
     return data;

@@ -43,7 +43,7 @@ Rectangle{
             id: depthLabel
             anchors.centerIn: parent
 
-            text: qsTr(udp.depth + " m")
+            text: qsTr(Number(udp.depth).toFixed(2) + " m | " + Number(udp.depthConfidence).toFixed(0) + "%")
 //            font.bold: true
             color: "blue"
             font.pixelSize: parent.height *.07

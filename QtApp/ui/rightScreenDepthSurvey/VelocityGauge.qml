@@ -10,7 +10,7 @@ import QtQml 2.15
 
 Rectangle{
     id: usvStatesDisplayDepthSurvey
-    color: 'yellow'
+    color: colorBackground
     anchors{
         left: mapViewDepthSurvey.right
         leftMargin: parent.width *.01
@@ -34,7 +34,7 @@ Rectangle{
 
     Rectangle{
         id:rectangleStopWatch
-        color: 'pink'
+        color: colorBackground
         anchors{
             left: parent.left
             right: parent.right
@@ -61,7 +61,7 @@ Rectangle{
                     timer.seconds = 0
                 }
                 onPressed:{
-                    timeLcd.color = "yellow"
+                    timeLcd.color = colorBackground
                 }
                 onReleased:{
                     timeLcd.color = "blue"
@@ -127,7 +127,7 @@ Rectangle{
         Rectangle{
             id:rectangleBattery
             border.width: 7
-            color: 'pink'
+            color: colorBackground
             anchors{
                 right: parent.right
                 rightMargin: parent.width * .22
@@ -276,7 +276,7 @@ Rectangle{
         }
     }
     Rectangle{
-        color: "pink"
+        color: colorBackground
         anchors{
             top: homeLocationDisplay.bottom
             topMargin: 0
