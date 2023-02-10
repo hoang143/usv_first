@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 Rectangle{
     id: leftScreen
     //border.width: 50
-    color: "white"
+    color: colorBackground
     anchors{
         left: parent.left
         right: rightScreen.left

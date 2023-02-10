@@ -7,7 +7,7 @@ import QtLocation 5.15
 
 Rectangle{
     id: rectangleControlManualButton
-    color: "white"
+    color: colorBackground
     focus: true
     Keys.enabled: true
     anchors{
@@ -18,25 +18,44 @@ Rectangle{
     height: parent.height * .4
     Rectangle{
         id: controlManualLabel
-        color: "yellow"
+        color: colorBackground
         anchors{
             top: parent.top
-            topMargin: parent.height * .15
+            //topMargin: parent.height * .15
         }
         width: parent.width
-        height: parent.height * .12
+        height: parent.height * .20
+
+        Image{
+                    id: manualControlIcon
+                    anchors{
+                        top: parent.top
+                        topMargin: parent.height * .15
+                        left: parent.left
+                        leftMargin: parent.width * .03
+                    }
+
+                    height: parent.height *.7
+                    width: rectangleABMode.width *.2
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/ui/assets/manualMode.png"
+                }
+
         Label{
             text: "Manual control"
             anchors{
-                centerIn: parent
+                top: parent.top
+                topMargin: parent.height *.15
+                left: manualControlIcon.right
+                leftMargin: parent.width * .04
             }
-            font.pointSize: rectangleControlManualButton.height *.04
+            font.pointSize: rectangleControlManualButton.height *.055
             font.bold: true
         }
     }
     Rectangle{
         id:leftManualButton
-        color: "white"
+        color: colorBackground
         anchors{
             top: controlManualLabel.bottom
             topMargin: parent.height * .015
@@ -87,7 +106,7 @@ Rectangle{
 
         Rectangle{
             id: forwardManualButton
-            color: "white"
+            color: colorBackground
             width: parent.width
             height: parent.height * .333
             anchors{
@@ -123,7 +142,7 @@ Rectangle{
         }
         Rectangle{
             id: haltManualButton
-            color: "white"
+            color: colorBackground
             width: parent.width
             height: parent.height * .334
             anchors{
@@ -158,7 +177,7 @@ Rectangle{
         }
         Rectangle{
             id: stopManualButton
-            color: "white"
+            color: colorBackground
             width: parent.width
             height: parent.height * .333
             anchors{
@@ -194,7 +213,7 @@ Rectangle{
     }
     Rectangle{
         id:rightManualButton
-        color: "white"
+        color: colorBackground
         anchors{
             top: controlManualLabel.bottom
             topMargin: parent.height * .015
@@ -234,31 +253,48 @@ Rectangle{
     }
     Rectangle{
         id: homeLocationLabel
-        color: "orange"
+        color: colorBackground
         anchors{
             top: leftManualButton.bottom
             topMargin: parent.height * .05
         }
         width: parent.width
         height: parent.height * .1
+
+        Image{
+            id: homeLocationIcon
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+                leftMargin: parent.width *.03
+            }
+            height: parent.height * 1.3
+            fillMode: Image.PreserveAspectFit
+            source: "qrc:/ui/assets/homeLocation.png"
+        }
+
         Label{
             text: "Home Location"
             anchors{
-                centerIn: parent
+                left: homeLocationIcon.right
+                leftMargin: parent.width *.05
+                verticalCenter: parent
             }
-            font.pointSize: rectangleControlManualButton.height *.04
+            font.pointSize: rectangleControlManualButton.height *.055
             font.bold: true
         }
     }
     Rectangle{
         id: getHomeLocationButton
-        color: "orange"
+        color: colorBackground
+//        border.width: 2
         anchors{
             top: homeLocationLabel.bottom
-            topMargin: parent.height * .01
+            topMargin: parent.height * .03
             left: parent.left
+            leftMargin: parent.width * .1
         }
-        width: parent.width * .49
+        width: parent.width * .44
         height: parent.height * .1
         Label{
             text: "Get Home"
@@ -277,22 +313,24 @@ Rectangle{
                 console.log("marker" + markerHome.count)
             }
             onPressed:{
-                parent.color = "yellow"
+                parent.color = colorTheme
             }
             onReleased:{
-                parent.color = "orange"
+                parent.color = colorBackground
             }
         }
     }
     Rectangle{
         id: sendHomeLocationButton
-        color: "orange"
+        color: colorBackground
+//        border.width: 2
         anchors{
-            top: homeLocationLabel.bottom
-            topMargin: parent.height * .01
-            right: parent.right
+            top: getHomeLocationButton.top
+//            topMargin: parent.height * .03
+            left: getHomeLocationButton.right
+            leftMargin: parent.width * .0
         }
-        width: parent.width * .49
+        width: parent.width * .44
         height: parent.height * .1
         Label{
             text: "To Home"
@@ -308,10 +346,10 @@ Rectangle{
                 udp.sendHome = 1
             }
             onPressed:{
-                parent.color = "yellow"
+                parent.color = colorTheme
             }
             onReleased:{
-                parent.color = "orange"
+                parent.color = colorBackground
             }
         }
     }

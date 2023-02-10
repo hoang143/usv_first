@@ -15,7 +15,6 @@ MapQuickItem {
             fillMode: Image.PreserveAspectFit
             sourceSize: Qt.size(parent.width, parent.height)
             rotation: usvMapAngle
-
         }
         Text {
             id: txt

@@ -14,27 +14,40 @@ Rectangle{
     }
     width: parent.height * .5
     height: parent.height * .4
-    color: "black"
+    color: "transparent"
 
     Timer {
         id:timerDepthChart2D
         interval: 1000; running: true; repeat: true
         onTriggered:{
             mainwindow.indexDepthChart2D += 1
-            lineDepthChart2D.append(indexDepthChart2D + 4,yDepthChart2D)
+            lineDepthChart2D.append(indexDepthChart2D,udp.depth)
+            if(indexDepthChart2D > 8){
+                depth2Daxisx.min = indexDepthChart2D -8
+                depth2Daxisx.max = indexDepthChart2D + 1
+            }
         }
     }
 
     ChartView {
-//        title: "Depth over time (m)"
         anchors{
             centerIn: parent
         }
         width: parent.width * 1.1
         height: parent.height * 1.1
         antialiasing: true
-        backgroundColor: "white"
+        backgroundColor: "transparent"
 //        opacity: 0.5
+
+        Label{
+            id: depthLabel
+            anchors.centerIn: parent
+
+            text: qsTr(Number(udp.depth).toFixed(2) + " m | " + Number(udp.depthConfidence).toFixed(0) + "%")
+//            font.bold: true
+            color: "blue"
+            font.pixelSize: parent.height *.07
+        }
 
         ValueAxis {
             id: depth2DaxisY
@@ -49,8 +62,8 @@ Rectangle{
 
         ValueAxis {
             id: depth2Daxisx
-            min: indexDepthChart2D
-            max: indexDepthChart2D + 8
+            min: 0
+            max: 8
             gridVisible: true
             color: "black"
             labelsColor: "black"

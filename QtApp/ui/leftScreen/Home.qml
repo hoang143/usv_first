@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 Rectangle{
     id: rectangleHome
     //border.width: 10
-    color: "yellow"
+    color: colorTheme
     anchors{
         left: parent.left
         //leftMargin: 10
@@ -42,10 +42,10 @@ Rectangle{
 
     Rectangle{
     id:rectangleCollectGarbage
-    color: "yellow"
+    color: colorTheme
     anchors{
         top: homeIcon.bottom
-        topMargin: parent.height * .1
+        topMargin: parent.height * .07
         left:parent.left
         right:parent.right
     }
@@ -83,8 +83,8 @@ Rectangle{
             rightScreen.visible = true
             rightScreenDepthSurvey.visible = false
             rightScreenWelcome.visible = false
-            parent.color = 'white'
-            rectangleDepthSurvey.color = 'yellow'
+            parent.color = colorBackground
+            rectangleDepthSurvey.color = colorTheme
 
         }
     }
@@ -92,7 +92,7 @@ Rectangle{
 
     Rectangle{
     id: rectangleDepthSurvey
-    color: "yellow"
+    color: colorTheme
     anchors{
         top: rectangleCollectGarbage.bottom
         topMargin: parent.height * .05
@@ -135,8 +135,8 @@ Rectangle{
             rightScreenDepthSurvey.visible = true
             rightScreenWelcome.visible = false
             passwordScreen.visible = false
-            parent.color = 'white'
-            rectangleCollectGarbage.color = 'yellow'
+            parent.color = colorBackground
+            rectangleCollectGarbage.color = colorTheme
         }
     }
 }

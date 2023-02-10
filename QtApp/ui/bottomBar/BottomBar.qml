@@ -12,14 +12,16 @@ Rectangle{
         right: parent.right
         bottom: parent.bottom
     }
-    color: "yellow"
+    color: colorTheme
     height: parent.height / 20
     property int countCompass:0
     property int countGPS:0
     property int countPacket:0
+    property int countDepth:0
     property var valCheckGPS
     property var valCheckCompass
     property var valCheckPacket
+    property var valCheckDepth
 
     function isPacketAvailable (valCheck){
         if(valCheckPacket == valCheck) {countPacket +=1}
@@ -51,6 +53,16 @@ Rectangle{
         else return true
 }
 
+    function isDepthAvailable (valCheck){
+        if(valCheckDepth == valCheck) {countDepth +=1}
+        else countDepth = 0
+        valCheckDepth = valCheck
+        if (countDepth > 50) {
+                return false
+        }
+        else return true
+}
+
     Timer {
         id:timerBottomBar
         interval: 100; running: true; repeat: true
@@ -63,11 +75,13 @@ Rectangle{
             else statusIndicatorGPS.active = false
             if(isCompassAvailable(udp.usvYaw)) statusIndicatorCompass.active = true
             else statusIndicatorCompass.active = false
+            if(isDepthAvailable(udp.usvYaw)) statusIndicatorDepth.active = true
+            else statusIndicatorDepth.active = false
         }
     }
     Rectangle{
         id:rectangleSettingIcon
-        color: "yellow"
+        color: colorTheme
         anchors{
             left: parent.left
             leftMargin: 30
@@ -96,12 +110,12 @@ Rectangle{
                 if(state % 2 == 0) {
                     leftScreen.visible = false
                     leftScreenSetting.visible = true
-                    parent.color = 'white'
+                    parent.color = colorBackground
                 }
                 else {
                     leftScreen.visible = true
                     leftScreenSetting.visible = false
-                    parent.color = "yellow"
+                    parent.color = colorTheme
                 }
                 state += 1
             }
@@ -109,12 +123,13 @@ Rectangle{
 }
     Rectangle{
         id:rectangleHomeBottomBar
-        color: "yellow"
-        anchors{
-            right: parent.right
-            rightMargin: parent.width * .1
-            verticalCenter: parent.verticalCenter
-        }
+        color: colorTheme
+//        anchors{
+//            right: parent.right
+//            rightMargin: parent.width * .1
+//            verticalCenter: parent.verticalCenter
+//        }
+        anchors.centerIn: parent
 
         height: parent.height
         width: parent.height * 1.3
@@ -135,12 +150,14 @@ Rectangle{
             anchors.fill: parent
             onClicked: {
                 if(state % 2 == 0) {
-                    devView.visible = true
-                    parent.color = 'pink'
+                    passwordScreenDevView.visible = true
+//                    devView.visible = true
+                    parent.color = colorBackground
                 }
                 else {
                     devView.visible = false
-                    parent.color = "orange"
+                    passwordScreenDevView.visible = false
+                    parent.color = colorTheme
                 }
                 state += 1
             }
@@ -149,10 +166,10 @@ Rectangle{
 
     Rectangle{
         id:rectangleSleepBottomBar
-        color: "yellow"
+        color: colorTheme
         anchors{
-            right: parent.right
-            rightMargin: parent.width * .03
+            left: rectangleSettingIcon.right
+            leftMargin: parent.width * .03
             verticalCenter: parent.verticalCenter
         }
 
@@ -177,11 +194,12 @@ Rectangle{
             onClicked: {
                 if(state % 2 == 0) {
                     passwordScreen.visible = true
-                    parent.color = 'pink'
+                    rightScreenWelcome.visible = false
+                    parent.color = colorBackground
                 }
                 else {
-                    passwordScreen.visible = false
-                    parent.color = "orange"
+//                    passwordScreen.visible = false
+                    parent.color = colorTheme
                 }
                 state += 1
             }
@@ -190,27 +208,31 @@ Rectangle{
 
     StatusIndicator {
             id: statusIndicatorConnected
-            anchors.centerIn: parent
+            anchors{
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: parent.height *.2
+            }
+
             active: false
             color: "green"
         }
     Text {
         id: statusIndicatorConnectedText
         anchors{
-            left: statusIndicatorConnected.right
-            leftMargin: parent.width * .01
+            right: statusIndicatorConnected.left
+            rightMargin: parent.width * .001
             verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
         }
-        font.pixelSize: parent.height * .4
+        font.pixelSize: parent.height * .3
         text: "Connected"
     }
 
     StatusIndicator {
             id: statusIndicatorGPS
             anchors{
-                left: statusIndicatorConnectedText.right
-                leftMargin: parent.width * .15
+                right: statusIndicatorConnected.left
+                rightMargin: parent.height *1.8
                 verticalCenter: parent.verticalCenter
             }
 
@@ -219,20 +241,19 @@ Rectangle{
     Text {
         id: statusIndicatorGPSText
         anchors{
-            left: statusIndicatorGPS.right
-            leftMargin: parent.width * .01
+            right: statusIndicatorGPS.left
+            rightMargin: parent.width * .001
             verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
         }
-        font.pixelSize: parent.height * .4
+        font.pixelSize: parent.height * .3
         text: "GPS"
     }
 
     StatusIndicator {
             id: statusIndicatorCompass
             anchors{
-                left: statusIndicatorGPSText.right
-                leftMargin: parent.width * .39
+                right: statusIndicatorGPS.left
+                rightMargin: parent.height * 1.8
                 verticalCenter: parent.verticalCenter
             }
             active: false
@@ -241,13 +262,33 @@ Rectangle{
     Text {
         id: statusIndicatorCompassText
         anchors{
-            left: statusIndicatorCompass.right
-            leftMargin: parent.width * .01
+            right: statusIndicatorCompass.left
+            rightMargin: parent.width * .001
             verticalCenter: parent.verticalCenter
-            horizontalCenter: parent.horizontalCenter
         }
-        font.pixelSize: parent.height * .4
+        font.pixelSize: parent.height * .3
         text: "Compass"
+    }
+
+    StatusIndicator {
+            id: statusIndicatorDepth
+            anchors{
+                right: statusIndicatorCompass.left
+                rightMargin: parent.height * 1.8
+                verticalCenter: parent.verticalCenter
+            }
+            active: false
+            color: "green"
+        }
+    Text {
+        id: statusIndicatorDepthText
+        anchors{
+            right: statusIndicatorDepth.left
+            rightMargin: parent.width * .001
+            verticalCenter: parent.verticalCenter
+        }
+        font.pixelSize: parent.height * .3
+        text: "Depth"
     }
 
 }

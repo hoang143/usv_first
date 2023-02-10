@@ -6,4 +6,3 @@ MapPolyline {
     line.width: 1
     line.color: 'black'
 }
-

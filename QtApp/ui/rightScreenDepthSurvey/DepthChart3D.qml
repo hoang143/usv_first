@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import QtDataVisualization 1.2
 import QtQml.Models 2.1
 import QtCharts 2.2
@@ -6,7 +6,7 @@ import QtQuick.Controls 2.0
 
 Rectangle{
     id: rectangleDepthChart3D
-    visible: true
+    visible: false
     anchors{
         right: parent.right
         rightMargin: parent.width* .29
@@ -15,51 +15,57 @@ Rectangle{
     }
     width: depthChart2D.width * 1.5
     height: parent.height * .5
-    color: "blue"
+    color: "transparent"
+    property string dataFromFile
+    property string strTemp
+    property var lstData: []
+    property var lstTemp: []
+    property real i: 0
 
     Timer {
         id:timerDepthChart3D
         interval: 1000; running: true; repeat: true
         onTriggered:{
+            dataFromFile = logFile.dataFromFile
+            lstTemp = dataFromFile.split("\r\n")
+            while(i != lstTemp.length - 1){
+                strTemp = lstTemp[i]
+                lstData = strTemp.split(",")
+                console.log(lstData[2])
+                dataModel.append({ "longitude": lstData[1], "latitude": lstData[2], "height": lstData[0] })
+                i++
+            }
+            console.log(dataModel.count)
 
-            mainwindow.indexDepthChart2D += 1
-            dataModel.append({"Longitude":indexDepthChart2D + 4,"Latitude": yDepthChart2D,"Depth": 1})
+//            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.depth,"Depth": udp.usvLat})
         }
     }
 
-    ValueAxis {
-        id: depth3DaxisX
-        min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Longitude"
+    ValueAxis3D {
+        id: depth3DaxisX //latitude
+        title: "Latitude"
+        titleVisible: true
+//        min: Math.min(lstLat[1], lstLat[2], lstLat[3], lstLat[4])
+//        max: Math.max(lstLat[1], lstLat[2], lstLat[3], lstLat[4])
     }
-    ValueAxis {
-        id: depth3DaxisY
+    ValueAxis3D {
+        id: depth3DaxisY // depth
         min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Latitude"
+        max: 7
+        title: "Depth"
+        titleVisible: true
     }
-    ValueAxis {
-        id: depth3DaxisZ
-        min: 0
-        max: 5
-        gridVisible: true
-        color: "black"
-        labelsColor: "black"
-        labelFormat: "%.0f"
-        titleText: "Depth(m)"
+    ValueAxis3D {
+        id: depth3DaxisZ //longitude
+        title: "Longitude"
+        titleVisible: true
+//        min: Math.min(lstLng[1], lstLng[2], lstLng[3], lstLng[4])
+//        max: Math.max(lstLng[1], lstLng[2], lstLng[3], lstLng[4])
     }
 
     Scatter3D {
         id:scatterDepthChart3D
+//        antialiasing: true
         width: parent.width
         height: parent.height
         axisX: depth3DaxisX
@@ -112,5 +118,7 @@ Rectangle{
         }
     }
 }
+
+
 
 

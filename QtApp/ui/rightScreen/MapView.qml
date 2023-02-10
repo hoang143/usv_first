@@ -26,22 +26,23 @@ Rectangle{
             interval: 1000; running: true; repeat: true
 
             onTriggered:{
-                markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
+
                 if(udp.usvLat != 0) {
                     countLineUSV +=1
                     markerUSV.clear()
                     lineUSV.addCoordinate(QtPositioning.coordinate(udp.usvLat, udp.usvLng))
                     markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 }
+                markerUSV.append({"coords": QtPositioning.coordinate(21.006417, 105.842511)})
             }
         }
 
         MessageDialog {
             id: messagebox
             title:{
-                if(selectAutoModeGcs == 1) {qsTr("Mode " + selectAutoModeGcs + ": Single Target")}
-                else if(selectAutoModeGcs == 2) {qsTr("Mode " + selectAutoModeGcs + ": ZigZag ")}
-                else if(selectAutoModeGcs == 3)  {qsTr("Mode " + selectAutoModeGcs + ": Two Line(AB)")}
+                if(selectAutoModeGcs == 1) {qsTr("Mode 2: Single Target")}
+                else if(selectAutoModeGcs == 2) {qsTr("Mode 3: ZigZag ")}
+                else if(selectAutoModeGcs == 3)  {qsTr("Mode 1: Two Line(AB)")}
             }
 
             icon: StandardIcon.Question
@@ -86,32 +87,37 @@ Rectangle{
 
         Rectangle{
             id:rectangleDeleteAllButton
-            color: 'pink'
+            color: colorTheme
             anchors{
                 bottom: parent.bottom
                 left: parent.left
             }
             z:10
-            width: parent.width * .8
-            height: parent.width * .05
+            width: parent.width * 1
+            height: parent.width * .04
             Button{
                 id: deleteAllButton
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                 }
-                width:rectangleDeleteAllButton.width *.25
+                width:rectangleDeleteAllButton.width *.15
                 height:rectangleDeleteAllButton.height
 
                 text: qsTr("Delete All")
                 onClicked: {
                     lst.clear()
-                    for(i = count ; i >=-1; i --){
-                        line.removeCoordinate(count-1)
-                        mark_.remove(count-1)
+                    for(i = count ; i >-1; i --){
+                        line.removeCoordinate(count)
+                        mark_.remove(count)
                         count -=1
                     }
-
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
                     count = 0
                 }
             }
@@ -124,6 +130,7 @@ Rectangle{
                 }
                 z:10
                 height: parent.height
+                width: parent.width *.15
                 checked: true
                 text: qsTr("Stream Data")
         }
@@ -136,7 +143,7 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .15
             height: deleteAllButton.height
             text: qsTr("Delete")
             property var latMouse1
@@ -161,7 +168,7 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .15
             height: deleteAllButton.height
             text: qsTr("Delete USV Line")
             onClicked:{
@@ -171,29 +178,6 @@ Rectangle{
                 }
 
                 countLineUSV = 0
-            }
-        }
-
-        Button{
-            id: changeMapView
-            anchors{
-                bottom: parent.bottom
-                left: deleteLineUSV.right
-                leftMargin: parent.width * .01
-            }
-            z:10
-            width: parent.width * .25
-            height: deleteAllButton.height
-            text: qsTr("Change Style Map")
-            property int state: 0
-            onClicked: {
-                if(state % 2 == 0) {
-                    mainwindow.mapStyle = "mapbox://styles/danieltrieu/cl4b0zif1006215p6vd84a4o3"
-                }
-                else {
-                    mainwindow.mapStyle = "mapbox://styles/mapbox/streets-v12"
-                }
-                state += 1
             }
         }
         }
@@ -212,13 +196,16 @@ Rectangle{
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
 //             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+             center: QtPositioning.coordinate(21.006417, 105.842511)
              zoomLevel: 18
              Line{
                  id: line
              }
              LineUSV{
                  id:lineUSV
+             }
+             LineZigzag{
+                 id:lineZigzag
              }
 
              MapItemView{
@@ -257,8 +244,8 @@ Rectangle{
                           lst.append({"coords":coordinate})
                           count = lst.count
                           cout_dele = count;
-                          lstLat[count] = latMouse
-                          lstLng[count] = lngMouse
+                          mainwindow.lstLat[count] = latMouse
+                          mainwindow.lstLng[count] = lngMouse
                           line.addCoordinate(coordinate)
                           distance = codToMeter(lstLat[count], lstLng[count], lstLat[count - 1], lstLng[count - 1],count)
                           if (count == 1)
@@ -270,8 +257,18 @@ Rectangle{
                                   messagebox.visible = true
                           }
                           if(selectAutoModeGcs == 2){
-                              if(count >= 4) {
+                              if(count == 4) {
                                   messagebox.visible = true
+                                  line.addCoordinate(QtPositioning.coordinate(lstLat[1], lstLng[1]))
+                                  getLstLatLng()
+                                  getLstZigzag()
+                                  for(i = 0; i < lstLatZigzag.length; i++){
+                                  lineZigzag.addCoordinate(QtPositioning.coordinate(lstLatZigzag[i], lstLngZigzag[i]))
+                                  }
+                                  if(count > 4){
+                                      mark_.remove(count - 1)
+                                      line.removeCoordinate(count)
+                                  }
                                   }
                           }
                           if (selectAutoModeGcs == 3){

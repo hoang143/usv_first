@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 
 Rectangle{
     id: rightScreenDepthSurvey
-    color: "white"
+    color: colorBackground
     width: parent.width *0.8
     anchors{
         top: parent.top
@@ -19,10 +19,10 @@ Rectangle{
         id:depthChart2D
     }
 
-    DepthChart3D{
-        id: depthChart3D
-        visible: true
-    }
+//    DepthChart3D{
+//        id: depthChart3D
+//        visible: true
+//    }
 
     VelocityGauge{
         id:rectangleVelocityGauge

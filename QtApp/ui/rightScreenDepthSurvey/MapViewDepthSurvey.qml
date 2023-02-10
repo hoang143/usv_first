@@ -9,8 +9,6 @@ import QtQuick.Dialogs 1.1
 
 Rectangle{
         id: rectangleMapDepthSurvey
-    //    border.width: 100
-    //    border.color: 'black'
         anchors{
             left: parent.left
             leftMargin: parent.width * .01
@@ -21,18 +19,43 @@ Rectangle{
         }
         width: parent.width * .69
         height: parent.height * .98
+        property string path
+
+        FileDialog {
+            id: saveFileDialog
+            selectExisting: false
+            nameFilters: ["Text files (*.txt)", "All files (*)"]
+            onAccepted: {
+                timerLogFile.running = true
+                logFileButton.text = "Stop Log"
+                path = saveFileDialog.fileUrl.toString()
+//                console.log(path)
+            }
+        }
+
         Timer {
             id:timerMapView
-            interval: 1000; running: true; repeat: true
+            interval: 1000; running: false; repeat: true
 
             onTriggered:{
-                markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
+                markerUSV.clear()
+                markerUSV.append({"coords": QtPositioning.coordinate(21.009217, 105.842131)})
                 if(udp.usvLat != 0) {
                     countLineUSV +=1
                     markerUSV.clear()
                     lineUSV.addCoordinate(QtPositioning.coordinate(udp.usvLat, udp.usvLng))
                     markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 }
+            }
+        }
+
+        Timer {
+            id:timerLogFile
+            interval: 1000; running: false; repeat: true
+
+            onTriggered:{
+                logFile.path = path
+                logFile.data = udp.usvLat + "," + udp.usvLng + "," + udp.depth + "," + udp.depthConfidence
             }
         }
 
@@ -86,29 +109,29 @@ Rectangle{
 
         Rectangle{
             id:rectangleDeleteAllButton
-            color: 'pink'
+            color: colorTheme
             anchors{
                 bottom: parent.bottom
                 left: parent.left
             }
             z:10
-            width: parent.width * .7
-            height: parent.width * .05
+            width: parent.width
+            height: parent.width * .04
             Button{
                 id: deleteAllButton
                 anchors{
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                 }
-                width:rectangleDeleteAllButton.width *.3
+                width:rectangleDeleteAllButton.width *.13
                 height:rectangleDeleteAllButton.height
 
                 text: qsTr("Delete All")
                 onClicked: {
                     lst.clear()
                     for(i = count ; i >=-1; i --){
-                        line.removeCoordinate(count-1)
-                        mark_.remove(count-1)
+                        line.removeCoordinate(count)
+                        mark_.remove(count)
                         count -=1
                     }
 
@@ -136,11 +159,9 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .13
             height: deleteAllButton.height
             text: qsTr("Delete")
-            property var latMouse1
-            property var lngMouse1
             onClicked:{
                 lst.clear()
                 //mapview.clearMapItems()
@@ -161,7 +182,7 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .13
             height: deleteAllButton.height
             text: qsTr("Delete USV Line")
             onClicked:{
@@ -183,23 +204,69 @@ Rectangle{
                 leftMargin: parent.width * .01
             }
             z:10
-            width: parent.width * .25
+            width: parent.width * .13
             height: deleteAllButton.height
             text: "Hide Chart"
             onClicked: {
+                state += 1
                 if(state % 2 == 0) {
                     depthChart2D.visible = true
-                    depthChart3D.visible = true
+//                    depthChart3D.visible = true
                     hideShowDepthChart.text = "Hide Chart"
                 }
                 else {
                     depthChart2D.visible = false
-                    depthChart3D.visible = false
+//                    depthChart3D.visible = false
                     hideShowDepthChart.text = "Show Chart"
                 }
-                state += 1
+
             }
         }
+        Button{
+            property int state: 0
+            id: logFileButton
+            anchors{
+                bottom: parent.bottom
+                left: hideShowDepthChart.right
+                leftMargin: parent.width * .01
+            }
+            z:10
+            width: parent.width * .13
+            height: deleteAllButton.height
+            text: "Log File"
+            onClicked: {
+                state += 1
+                if(state % 2 != 0) {
+                    saveFileDialog.open()
+//                    console.log(textLogFile)
+                }
+                else {
+                    saveFileDialog.close()
+                    timerLogFile.running = false
+                    logFileButton.text = "Log file"
+//                    console.log(textLogFile)
+                }
+
+            }
+        }
+        Button{
+            property int state: 0
+            id: generateMapButton
+            anchors{
+                bottom: parent.bottom
+                left: logFileButton.right
+                leftMargin: parent.width * .01
+            }
+            z:10
+            width: parent.width * .16
+            height: deleteAllButton.height
+            text: "Generate Depth Map"
+            onClicked: {
+//                console.log(logFile.dataFromFile)
+                rightScreenDepthMap.visible = true
+                }
+
+            }
         }
 
         Plugin {
@@ -216,13 +283,16 @@ Rectangle{
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
 //             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+             center: QtPositioning.coordinate(21.009217, 105.842131)
              zoomLevel: 18
              Line{
                  id: line
              }
              LineUSV{
                  id:lineUSV
+             }
+             LineZigzag{
+                 id: lineZigzag
              }
 
              MapItemView{
@@ -276,6 +346,12 @@ Rectangle{
                           if(selectAutoModeGcs == 2){
                               if(count >= 4) {
                                   messagebox.visible = true
+                                  line.addCoordinate(QtPositioning.coordinate(lstLat[1], lstLng[1]))
+                                  getLstLatLng()
+                                  getLstZigzag()
+                                  for(i = 0; i < lstLatZigzag.length; i++){
+                                  lineZigzag.addCoordinate(QtPositioning.coordinate(lstLatZigzag[i], lstLngZigzag[i]))
+                                  }
                                   }
                           }
                           if (selectAutoModeGcs == 3){

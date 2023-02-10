@@ -74,21 +74,26 @@ QString udp::receivePacket()
         depth = usv_data.at(37).toFloat();
         depth_confidence = usv_data.at(38).toFloat();
 
+        if (step_no<1) step_no = 1;
+        if (current_target > step_no*2) current_target = step_no*2;
+
         // Derived
         battery_percentage = 100*(voltage_bat-11.7)/(13.7-11.7);
+        if (battery_percentage<0) battery_percentage = 0;
+        if (battery_percentage>100) battery_percentage = 100;
         distance_to_home = lat_lng_to_distance(usv_lat,usv_lng,home_lat,home_lng);
         if (distance_to_home>1000) distance_to_home = 1000;
     }
 
 
-//    qDebug()<<usv_data;
+    qDebug()<<usv_data;
 //    qDebug()<<temp1.setNum(auto_mode);
 //    qDebug()<<temp1.setNum(select_auto_mode);
 //    qDebug()<<temp1.setNum(thrust);
 //    qDebug()<<temp1.setNum(moment);
 //    qDebug()<<temp1.setNum(speed_1);
 //    qDebug()<<temp1.setNum(speed_2);
-//    qDebug()<<temp1.setNum(usv_yaw);
+    //qDebug()<<temp1.setNum(usv_yaw);
 //    qDebug()<<temp1.setNum(desire_yaw);
 //    qDebug()<<temp1.setNum(yaw_error);
 //    qDebug()<<temp1.setNum(distance);
@@ -111,7 +116,7 @@ QString udp::receivePacket()
 //    qDebug()<<temp1.setNum(arrival_radius);
 //    qDebug()<<temp1.setNum(zigzag_step);
 //    qDebug()<<temp1.setNum(look_ahead);
-//    qDebug()<<temp1.setNum(voltage_bat);
+      qDebug()<<temp1.setNum(depth_confidence);
 
     emit onReceivedPacket();
     return data;
@@ -262,6 +267,11 @@ float udp::qml_read_depth()                // Index 37
 {
     return depth;
 }
+float udp::qml_read_depth_confidence()     // Index 38
+{
+    return depth_confidence;
+}
+
 // ------ DERIVED ------
 float udp::qml_read_battery_percentage()
 {

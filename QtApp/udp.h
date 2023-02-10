@@ -46,6 +46,7 @@ class udp :public QObject
     Q_PROPERTY(float lookAhead READ qml_read_look_ahead NOTIFY onReceivedPacket)
     Q_PROPERTY(float voltageBat READ qml_read_voltage_bat NOTIFY onReceivedPacket)
     Q_PROPERTY(float depth READ qml_read_depth NOTIFY onReceivedPacket)
+    Q_PROPERTY(float depthConfidence READ qml_read_depth_confidence NOTIFY onReceivedPacket)
 
     // ------ DERIVED STATES ------
     Q_PROPERTY(float batteryPercentage READ qml_read_battery_percentage NOTIFY onReceivedPacket)
@@ -180,7 +181,9 @@ private:
     float qml_read_zigzag_step();          // Index 27
     float qml_read_look_ahead();           // Index 28
     float qml_read_voltage_bat();          // Index 29
+
     float qml_read_depth();                // Index 37
+    float qml_read_depth_confidence();     // Index 38
 
     // ------ DERIVED ------
     float qml_read_battery_percentage();
@@ -285,8 +288,8 @@ private:
     // ------ QT States: MODE 0 ------
         float thrust_send = 0;
         float moment_send = 0;
-        double home_lat = 0;
-        double home_lng = 0;
+        double home_lat = 21.006417;
+        double home_lng = 105.842511;
 
     // ------ QT States: MODE 1 ------
         double target_lat_mode_1 = 0;
@@ -320,12 +323,12 @@ private:
         float yaw_error = 0;            // Index 8
         float distance = 0;             // Index 9
         bool arrival = 0;               // Index 10
-        int step_no = 0;                // Index 11
-        int current_target = 0;         // Index 12
+        int step_no = 10;                // Index 11
+        int current_target = 1;         // Index 12
         bool end_zigzag = 0;            // Index 13
         bool reach_A = 0;               // Index 14
-        double usv_lat = 0;             // Index 15
-        double usv_lng = 0;             // Index 16
+        double usv_lat = 21.006417;     // Index 15
+        double usv_lng = 105.842511;    // Index 16
         bool valid = 0;                 // Index 17
         double target_lat = 0;          // Index 18
         double target_lng = 0;          // Index 19
@@ -350,7 +353,7 @@ private:
         float depth_confidence = 0;     // Index 38
 
     // ------ Derived variables ------
-        float battery_percentage = 0;
+        float battery_percentage = 60;
         float distance_to_home = 0;
 
 };
