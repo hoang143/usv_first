@@ -26,12 +26,14 @@ Rectangle{
             interval: 1000; running: true; repeat: true
 
             onTriggered:{
+
                 if(udp.usvLat != 0) {
                     countLineUSV +=1
                     markerUSV.clear()
                     lineUSV.addCoordinate(QtPositioning.coordinate(udp.usvLat, udp.usvLng))
                     markerUSV.append({"coords": QtPositioning.coordinate(udp.usvLat, udp.usvLng)})
                 }
+                markerUSV.append({"coords": QtPositioning.coordinate(21.006417, 105.842511)})
             }
         }
 
@@ -193,8 +195,8 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-//             center: QtPositioning.coordinate(21.00578916837529, 105.85859245539928)
+//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+             center: QtPositioning.coordinate(21.006417, 105.842511)
              zoomLevel: 18
              Line{
                  id: line

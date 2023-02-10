@@ -14,6 +14,8 @@ import "ui/rightScreenWelcome"
 import "ui/passWord"
 import "ui/leftScreenSetting"
 import "ui/devView"
+import "ui/rightScreenDepthMap"
+import Log.File 1.0
 
 Window {
     id: mainwindow
@@ -54,8 +56,8 @@ Window {
     property int cout_dele: 0
     property bool stateStopWatch: false
     property int usvMapAngle: udp.usvYaw
-    property string colorTheme:"yellow"
-    property string colorBackground:"white"
+    property string colorTheme:"#FFE491"
+    property string colorBackground:"#F5CE0F"
     property string password: "12345"
     property string passwordDevView: "hoang"
     property string mapStyle: "mapbox://styles/mapbox/streets-v12"
@@ -123,6 +125,10 @@ Window {
         id: udp
     }
 
+    LogFile{
+        id: logFile
+    }
+
     BottomBar{
         id:bottomBar
     }
@@ -166,4 +172,11 @@ Window {
         id:passwordScreenDevView
         visible: false
     }
+
+    RightScreenDepthMap{
+        id: rightScreenDepthMap
+        visible: false
+        z: 20
+    }
+
 }

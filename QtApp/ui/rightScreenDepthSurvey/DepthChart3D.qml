@@ -6,7 +6,7 @@ import QtQuick.Controls 2.0
 
 Rectangle{
     id: rectangleDepthChart3D
-    visible: true
+    visible: false
     anchors{
         right: parent.right
         rightMargin: parent.width* .29
@@ -16,12 +16,28 @@ Rectangle{
     width: depthChart2D.width * 1.5
     height: parent.height * .5
     color: "transparent"
+    property string dataFromFile
+    property string strTemp
+    property var lstData: []
+    property var lstTemp: []
+    property real i: 0
 
     Timer {
         id:timerDepthChart3D
         interval: 1000; running: true; repeat: true
         onTriggered:{
-            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.depth,"Depth": udp.usvLat})
+            dataFromFile = logFile.dataFromFile
+            lstTemp = dataFromFile.split("\r\n")
+            while(i != lstTemp.length - 1){
+                strTemp = lstTemp[i]
+                lstData = strTemp.split(",")
+                console.log(lstData[2])
+                dataModel.append({ "longitude": lstData[1], "latitude": lstData[2], "height": lstData[0] })
+                i++
+            }
+            console.log(dataModel.count)
+
+//            dataModel.append({"Longitude":udp.usvLng,"Latitude": udp.depth,"Depth": udp.usvLat})
         }
     }
 

@@ -206,18 +206,6 @@ Rectangle{
         }
 }
 
-//    Text {
-//        id: statusIndicatorDepthText
-//        anchors{
-//            top: statusIndicatorConnected.bottom
-//            topMargin: parent.width * .01
-////            verticalCenter: parent.verticalCenter
-////            horizontalCenter: parent.horizontalCenter
-//        }
-//        font.pixelSize: parent.height * .2
-//        text: "Connected"
-//    }
-
     StatusIndicator {
             id: statusIndicatorConnected
             anchors{
@@ -229,71 +217,78 @@ Rectangle{
             active: false
             color: "green"
         }
-//    Text {
-//        id: statusIndicatorConnectedText
-//        anchors{
-//            left: statusIndicatorConnected.right
-//            leftMargin: parent.width * .01
-//            verticalCenter: parent.verticalCenter
-//            horizontalCenter: parent.horizontalCenter
-//        }
-//        font.pixelSize: parent.height * .4
-//        text: "Connected"
-//    }
+    Text {
+        id: statusIndicatorConnectedText
+        anchors{
+            right: statusIndicatorConnected.left
+            rightMargin: parent.width * .001
+            verticalCenter: parent.verticalCenter
+        }
+        font.pixelSize: parent.height * .3
+        text: "Connected"
+    }
 
     StatusIndicator {
             id: statusIndicatorGPS
             anchors{
                 right: statusIndicatorConnected.left
-                rightMargin: parent.height
+                rightMargin: parent.height *1.8
                 verticalCenter: parent.verticalCenter
             }
 
             color: "green"
         }
-//    Text {
-//        id: statusIndicatorGPSText
-//        anchors{
-//            left: statusIndicatorGPS.right
-//            leftMargin: parent.width * .01
-//            verticalCenter: parent.verticalCenter
-//            horizontalCenter: parent.horizontalCenter
-//        }
-//        font.pixelSize: parent.height * .4
-//        text: "GPS"
-//    }
+    Text {
+        id: statusIndicatorGPSText
+        anchors{
+            right: statusIndicatorGPS.left
+            rightMargin: parent.width * .001
+            verticalCenter: parent.verticalCenter
+        }
+        font.pixelSize: parent.height * .3
+        text: "GPS"
+    }
 
     StatusIndicator {
             id: statusIndicatorCompass
             anchors{
                 right: statusIndicatorGPS.left
-                rightMargin: parent.height
+                rightMargin: parent.height * 1.8
                 verticalCenter: parent.verticalCenter
             }
             active: false
             color: "green"
         }
-//    Text {
-//        id: statusIndicatorCompassText
-//        anchors{
-//            left: statusIndicatorCompass.right
-//            leftMargin: parent.width * .01
-//            verticalCenter: parent.verticalCenter
-//            horizontalCenter: parent.horizontalCenter
-//        }
-//        font.pixelSize: parent.height * .4
-//        text: "Compass"
-//    }
+    Text {
+        id: statusIndicatorCompassText
+        anchors{
+            right: statusIndicatorCompass.left
+            rightMargin: parent.width * .001
+            verticalCenter: parent.verticalCenter
+        }
+        font.pixelSize: parent.height * .3
+        text: "Compass"
+    }
 
     StatusIndicator {
             id: statusIndicatorDepth
             anchors{
                 right: statusIndicatorCompass.left
-                rightMargin: parent.height
+                rightMargin: parent.height * 1.8
                 verticalCenter: parent.verticalCenter
             }
             active: false
             color: "green"
         }
+    Text {
+        id: statusIndicatorDepthText
+        anchors{
+            right: statusIndicatorDepth.left
+            rightMargin: parent.width * .001
+            verticalCenter: parent.verticalCenter
+        }
+        font.pixelSize: parent.height * .3
+        text: "Depth"
+    }
 
 }

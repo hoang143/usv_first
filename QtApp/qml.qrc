@@ -78,5 +78,8 @@
         <file>ui/assets/WelcomeScreen1.mp4</file>
         <file>ui/assets/homeLocation.png</file>
         <file>ui/passWord/PasswordScreenDevView.qml</file>
+        <file>ui/rightScreenDepthMap/RightScreenDepthMap.qml</file>
+        <file>ui/rightScreenDepthMap/Data.qml</file>
+        <file>ui/rightScreenDepthMap/NewButton.qml</file>
     </qresource>
 </RCC>

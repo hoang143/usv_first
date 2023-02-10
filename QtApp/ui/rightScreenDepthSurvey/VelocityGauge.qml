@@ -9,8 +9,8 @@ import udp.to.qml 1.0
 import QtQml 2.15
 
 Rectangle{
-    id: usvStatesDisplayDepthSurvey
-    color: colorBackground
+    id: usvStatesDisplayDepthSurveyDepthSurvey
+    color: colorTheme
     anchors{
         left: mapViewDepthSurvey.right
         leftMargin: parent.width *.01
@@ -111,7 +111,7 @@ Rectangle{
                         seconds += 1
 
                         mainwindow.secPulse()
-                        usvStatesDisplayDepthSurvey.secPulse()
+                        usvStatesDisplayDepthSurveyDepthSurvey.secPulse()
                     }
                 }
                 Timer {
@@ -119,7 +119,7 @@ Rectangle{
                     interval: 1; running: true; repeat: true
 
                     onTriggered:{
-                        usvStatesDisplayDepthSurvey.miliPulse()
+                        usvStatesDisplayDepthSurveyDepthSurvey.miliPulse()
                     }
                 }
             }
@@ -190,7 +190,7 @@ Rectangle{
     }
     Rectangle{
         id: homeLocationDisplay
-        color: 'orange'
+        color: colorTheme
         anchors{
             top: rectangleStopWatch.bottom
             topMargin: 0
@@ -285,17 +285,17 @@ Rectangle{
         width: parent.width
         height: parent.height *.08
         Row{
-            spacing: usvStatesDisplayDepthSurvey.width * .03
+            spacing: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
             anchors{
                 fill: parent
-                leftMargin: usvStatesDisplayDepthSurvey.width * .06
+                leftMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .06
             }
             Label{
                 text: "Progress"
                 anchors{
                     verticalCenter: parent.verticalCenter
                 }
-                font.pixelSize: usvStatesDisplayDepthSurvey.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
                 font.bold: true
             }
             ProgressBar{
@@ -305,10 +305,10 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: trackingProgressLcd.left
-                    rightMargin: usvStatesDisplayDepthSurvey.width * .03
+                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .03
                 }
-                width: usvStatesDisplayDepthSurvey.width * .4
-                height: usvStatesDisplayDepthSurvey.height * .03
+                width: usvStatesDisplayDepthSurveyDepthSurvey.width * .4
+                height: usvStatesDisplayDepthSurveyDepthSurvey.height * .03
                 value: 100*udp.currentTarget/(udp.stepNo*2)
             }
             Label{
@@ -318,9 +318,9 @@ Rectangle{
                 anchors{
                     verticalCenter: parent.verticalCenter
                     right: parent.right
-                    rightMargin: usvStatesDisplayDepthSurvey.width * .05
+                    rightMargin: usvStatesDisplayDepthSurveyDepthSurvey.width * .05
                 }
-                font.pixelSize: usvStatesDisplayDepthSurvey.height * .025
+                font.pixelSize: usvStatesDisplayDepthSurveyDepthSurvey.height * .025
                 font.bold: false
             }
 
@@ -335,14 +335,32 @@ Rectangle{
         value: udp.usvYaw
         anchors{
             top: rectangleStopWatch.bottom
-            topMargin: parent.height * .22
+            topMargin: parent.height * .25
             horizontalCenter: parent.horizontalCenter
         }
         width: parent.width * .7
-        style: CircularGaugeStyle {
+        style: CircularGaugeStyle
+        {
             labelStepSize: 40
             maximumValueAngle: 160
             minimumValueAngle: -160
+            tickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+            }
+            minorTickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+                anchors.bottomMargin: 8
+                font.pixelSize: 5
+            }
+            tickmarkLabel: Text{
+                text:styleData.index*40-180
+                color:"black"
+                anchors.top: parent.top
+            }
         }
         Label{
             id: compassGaugeLabel
@@ -352,7 +370,7 @@ Rectangle{
                 bottomMargin: compassGauge.height * .35
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplayDepthSurvey.height *.021
+            font.pixelSize: 22
             font.bold: false
         }
         Label{
@@ -361,10 +379,10 @@ Rectangle{
             text: "  "+udp.usvYaw + "°"
             anchors{
                 bottom: compassGaugeLabel.top
-                bottomMargin: compassGauge.height * .17
+                bottomMargin: compassGauge.height * .15
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplayDepthSurvey.height *.05
+            font.pixelSize: 40
             font.bold: false
         }
     }
@@ -378,15 +396,34 @@ Rectangle{
         anchors{
             horizontalCenter: parent.horizontalCenter
             top: rectangleStopWatch.bottom
-            topMargin: parent.height * .55
+            topMargin: parent.height * .6
         }
         width: parent.width * .7
-        style: CircularGaugeStyle {
+        style: CircularGaugeStyle
+        {
             tickmarkStepSize: 0.5
             labelStepSize: 2
             maximumValueAngle: 90
             minimumValueAngle: -90
-            minorTickmarkCount: 2
+            minorTickmarkCount: 4
+            tickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+            }
+            minorTickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+                anchors.bottomMargin: 8
+                font.pixelSize: 5
+                font.bold: true
+            }
+            tickmarkLabel: Text{
+                text:styleData.index*2
+                color:"black"
+                anchors.top: parent.top
+            }
         }
         property real locationDifference : 0
 
@@ -408,10 +445,10 @@ Rectangle{
             text: Number(velocityGauge.locationDifference).toFixed(1)
             anchors{
                 bottom: velocityLcd.top
-                bottomMargin: velocityGauge.height * .15
+                bottomMargin: velocityGauge.height * .2
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplayDepthSurvey.height *.05
+            font.pixelSize: 40
             font.bold: false
         }
         Label{
@@ -419,14 +456,12 @@ Rectangle{
             text: "Velocity (m/s)"
             anchors{
                 bottom: velocityGauge.bottom
-                bottomMargin: velocityGauge.height * .34
+                bottomMargin: velocityGauge.height * .3
                 horizontalCenter: parent.horizontalCenter
             }
-            font.pixelSize:usvStatesDisplayDepthSurvey.height *.021
+            font.pixelSize:22
             font.bold: false
         }
     }
 
 }
-
-

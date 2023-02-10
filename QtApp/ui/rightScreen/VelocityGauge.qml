@@ -336,14 +336,32 @@ Rectangle{
         value: udp.usvYaw
         anchors{
             top: rectangleStopWatch.bottom
-            topMargin: parent.height * .22
+            topMargin: parent.height * .25
             horizontalCenter: parent.horizontalCenter
         }
         width: parent.width * .7
-        style: CircularGaugeStyle {
+        style: CircularGaugeStyle
+        {
             labelStepSize: 40
             maximumValueAngle: 160
             minimumValueAngle: -160
+            tickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+            }
+            minorTickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+                anchors.bottomMargin: 8
+                font.pixelSize: 5
+            }
+            tickmarkLabel: Text{
+                text:styleData.index*40-180
+                color:"black"
+                anchors.top: parent.top
+            }
         }
         Label{
             id: compassGaugeLabel
@@ -379,15 +397,34 @@ Rectangle{
         anchors{
             horizontalCenter: parent.horizontalCenter
             top: rectangleStopWatch.bottom
-            topMargin: parent.height * .55
+            topMargin: parent.height * .6
         }
         width: parent.width * .7
-        style: CircularGaugeStyle {
+        style: CircularGaugeStyle
+        {
             tickmarkStepSize: 0.5
             labelStepSize: 2
             maximumValueAngle: 90
             minimumValueAngle: -90
-            minorTickmarkCount: 2
+            minorTickmarkCount: 4
+            tickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+            }
+            minorTickmark: Text{
+                text:"|"
+                color:"black"
+                anchors.bottom: parent.top
+                anchors.bottomMargin: 8
+                font.pixelSize: 5
+                font.bold: true
+            }
+            tickmarkLabel: Text{
+                text:styleData.index*2
+                color:"black"
+                anchors.top: parent.top
+            }
         }
         property real locationDifference : 0
 

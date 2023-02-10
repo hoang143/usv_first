@@ -74,8 +74,13 @@ QString udp::receivePacket()
         depth = usv_data.at(37).toFloat();
         depth_confidence = usv_data.at(38).toFloat();
 
+        if (step_no<1) step_no = 1;
+        if (current_target > step_no*2) current_target = step_no*2;
+
         // Derived
         battery_percentage = 100*(voltage_bat-11.7)/(13.7-11.7);
+        if (battery_percentage<0) battery_percentage = 0;
+        if (battery_percentage>100) battery_percentage = 100;
         distance_to_home = lat_lng_to_distance(usv_lat,usv_lng,home_lat,home_lng);
         if (distance_to_home>1000) distance_to_home = 1000;
     }
