@@ -34,15 +34,18 @@ Rectangle {
 //                console.log(path)
             path = saveFileDialog.fileUrl.toString()
             logFile.path = path
+
+            interpolate = 1;
+
             dataFromFile = logFile.dataFromFile
             lstTemp = dataFromFile.split("\r\n")
             while(i != lstTemp.length - 1){
                 strTemp = lstTemp[i]
                 lstData = strTemp.split(",")
-                if(lstData[0] <= minLat) minLat = lstData[0]
-                if(lstData[0] >= maxLat) maxLat = lstData[0]
-                if(lstData[1] <= minLng) minLng = lstData[1]
-                if(lstData[1] <= maxLng) maxLng = lstData[1]
+//                if(lstData[0] <= minLat) minLat = lstData[0]
+//                if(lstData[0] >= maxLat) maxLat = lstData[0]
+//                if(lstData[1] <= minLng) minLng = lstData[1]
+//                if(lstData[1] <= maxLng) maxLng = lstData[1]
 //                    console.log(minLat)
                 surfaceData.model.append({ longitude: lstData[1], latitude: lstData[0], height: lstData[2] })
                 i++
