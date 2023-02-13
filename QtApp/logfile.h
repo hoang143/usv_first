@@ -19,7 +19,7 @@ class LogFile :public QObject
 
 public:
     explicit LogFile(QObject *parent = Q_NULLPTR);
-    LogTextFile(QString path, QString data);
+    int LogTextFile(QString path, QString data);
     QString ReadTextFile();
     void Interpolation();
     float lat_lng_to_distance (double _lat_1, double _lng_1, double _lat_2, double _lng_2);

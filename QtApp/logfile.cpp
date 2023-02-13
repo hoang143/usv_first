@@ -10,14 +10,14 @@ LogFile::LogFile(QObject *parent)
 
 }
 
-LogFile::LogTextFile(QString path, QString data)
+int LogFile::LogTextFile(QString path, QString data)
 {
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         return -1;
 
     QTextStream out(&file);
-    out << data << endl;
+    out << data << Qt::endl;
 //    out << udp.usv_lat + "," + udp.usv_lng + "," + udp.depth + "," + udp.depth_confidence << endl;
     file.close();
     return 0;
