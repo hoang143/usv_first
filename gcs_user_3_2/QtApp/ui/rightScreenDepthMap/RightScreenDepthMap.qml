@@ -29,23 +29,18 @@ Rectangle {
 
 
     FileDialog {
-        id: saveFileDialog
+        id: loadFileInterpolatedDialog
         selectExisting: false
         nameFilters: ["Text files (*.txt)", "All files (*)"]
         onAccepted: {
-            path = saveFileDialog.fileUrl.toString()
+            path = loadFileInterpolatedDialog.fileUrl.toString()
 //          console.log(path)
-            path = saveFileDialog.fileUrl.toString()
             logFile.path = path
-            dataFromFile = logFile.dataFromFile
-            lstTemp = dataFromFile.split("\r\n")
+            dataFromFile = logFile.interpolatedData
+            lstTemp = dataFromFile.split(";")
             while(i != lstTemp.length - 1){
                 strTemp = lstTemp[i]
                 lstData = strTemp.split(",")
-                if(lstData[0] <= minLat) minLat = lstData[0]
-                if(lstData[0] >= maxLat) maxLat = lstData[0]
-                if(lstData[1] <= minLng) minLng = lstData[1]
-                if(lstData[1] <= maxLng) maxLng = lstData[1]
 //              console.log(minLat)
                 surfaceData.model.append({ longitude: lstData[1], latitude: lstData[0], height: lstData[2] })
                 i++
@@ -60,7 +55,6 @@ Rectangle {
         selectExisting: false
         nameFilters: ["Text files (*.txt)", "All files (*)"]
         onAccepted: {
-            interpolatePath = interpolateFileDialog.fileUrl.toString()
             interpolatePath = interpolateFileDialog.fileUrl.toString()
             logFile.interpolatePath = interpolatePath
             logFile.startInterpolate = 1
@@ -280,10 +274,10 @@ Rectangle {
             //! [3]
         }
         NewButton {
-            id: logFromFile
+            id: generateAndLog
             Layout.fillWidth: true
             Layout.fillHeight: true
-            text: "Generate From File"
+            text: "Generate & Log File"
             //! [3]
             onClicked: {
                 dataFromFile = logFile.dataFromFile
@@ -301,6 +295,17 @@ Rectangle {
                 }
                 console.log(dataFromFile)
                 // console.log(surfaceData.model.count)
+            }
+            //! [3]
+        }
+        NewButton {
+            id: generateFromFile
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            text: "Generate From File"
+            //! [3]
+            onClicked: {
+                loadFileInterpolatedDialog.open();
             }
             //! [3]
         }

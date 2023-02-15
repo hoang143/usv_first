@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_LogFile_t {
-    QByteArrayData data[18];
-    char stringdata0[270];
+    QByteArrayData data[20];
+    char stringdata0[317];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,22 +41,25 @@ QT_MOC_LITERAL(5, 62, 21), // "onDataFromFileChanged"
 QT_MOC_LITERAL(6, 84, 20), // "onInterpolateResumed"
 QT_MOC_LITERAL(7, 105, 19), // "onInterpolatePaused"
 QT_MOC_LITERAL(8, 125, 20), // "onInterpolateStopped"
-QT_MOC_LITERAL(9, 146, 12), // "DataFromFile"
-QT_MOC_LITERAL(10, 159, 4), // "path"
-QT_MOC_LITERAL(11, 164, 15), // "interpolatePath"
-QT_MOC_LITERAL(12, 180, 4), // "data"
-QT_MOC_LITERAL(13, 185, 12), // "dataFromFile"
-QT_MOC_LITERAL(14, 198, 16), // "startInterpolate"
-QT_MOC_LITERAL(15, 215, 17), // "resumeInterpolate"
-QT_MOC_LITERAL(16, 233, 22), // "getInterpolateProgress"
-QT_MOC_LITERAL(17, 256, 13) // "getPauseCount"
+QT_MOC_LITERAL(9, 146, 29), // "onLoadInterpolatedDataChanged"
+QT_MOC_LITERAL(10, 176, 12), // "DataFromFile"
+QT_MOC_LITERAL(11, 189, 4), // "path"
+QT_MOC_LITERAL(12, 194, 15), // "interpolatePath"
+QT_MOC_LITERAL(13, 210, 4), // "data"
+QT_MOC_LITERAL(14, 215, 12), // "dataFromFile"
+QT_MOC_LITERAL(15, 228, 16), // "interpolatedData"
+QT_MOC_LITERAL(16, 245, 16), // "startInterpolate"
+QT_MOC_LITERAL(17, 262, 17), // "resumeInterpolate"
+QT_MOC_LITERAL(18, 280, 22), // "getInterpolateProgress"
+QT_MOC_LITERAL(19, 303, 13) // "getPauseCount"
 
     },
     "LogFile\0onPathChanged\0\0onInterpolatePathChanged\0"
     "onDataChanged\0onDataFromFileChanged\0"
     "onInterpolateResumed\0onInterpolatePaused\0"
-    "onInterpolateStopped\0DataFromFile\0"
-    "path\0interpolatePath\0data\0dataFromFile\0"
+    "onInterpolateStopped\0onLoadInterpolatedDataChanged\0"
+    "DataFromFile\0path\0interpolatePath\0"
+    "data\0dataFromFile\0interpolatedData\0"
     "startInterpolate\0resumeInterpolate\0"
     "getInterpolateProgress\0getPauseCount"
 };
@@ -68,26 +71,28 @@ static const uint qt_meta_data_LogFile[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
-       8,   62, // properties
+       9,   14, // methods
+       9,   68, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       7,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x06 /* Public */,
-       3,    0,   55,    2, 0x06 /* Public */,
-       4,    0,   56,    2, 0x06 /* Public */,
-       5,    0,   57,    2, 0x06 /* Public */,
-       6,    0,   58,    2, 0x06 /* Public */,
-       7,    0,   59,    2, 0x06 /* Public */,
-       8,    0,   60,    2, 0x06 /* Public */,
+       1,    0,   59,    2, 0x06 /* Public */,
+       3,    0,   60,    2, 0x06 /* Public */,
+       4,    0,   61,    2, 0x06 /* Public */,
+       5,    0,   62,    2, 0x06 /* Public */,
+       6,    0,   63,    2, 0x06 /* Public */,
+       7,    0,   64,    2, 0x06 /* Public */,
+       8,    0,   65,    2, 0x06 /* Public */,
+       9,    0,   66,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    0,   61,    2, 0x0a /* Public */,
+      10,    0,   67,    2, 0x0a /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -100,20 +105,22 @@ static const uint qt_meta_data_LogFile[] = {
     QMetaType::QString,
 
  // properties: name, type, flags
-      10, QMetaType::QString, 0x00095102,
       11, QMetaType::QString, 0x00095102,
       12, QMetaType::QString, 0x00095102,
-      13, QMetaType::QString, 0x00495001,
-      14, QMetaType::Bool, 0x00095002,
-      15, QMetaType::Bool, 0x00095002,
-      16, QMetaType::Int, 0x00495001,
-      17, QMetaType::Int, 0x00495001,
+      13, QMetaType::QString, 0x00095102,
+      14, QMetaType::QString, 0x00495001,
+      15, QMetaType::QString, 0x00495001,
+      16, QMetaType::Bool, 0x00095002,
+      17, QMetaType::Bool, 0x00095002,
+      18, QMetaType::Int, 0x00495001,
+      19, QMetaType::Int, 0x00495001,
 
  // properties: notify_signal_id
        0,
        0,
        0,
        3,
+       7,
        0,
        0,
        5,
@@ -135,7 +142,8 @@ void LogFile::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 4: _t->onInterpolateResumed(); break;
         case 5: _t->onInterpolatePaused(); break;
         case 6: _t->onInterpolateStopped(); break;
-        case 7: { QString _r = _t->DataFromFile();
+        case 7: _t->onLoadInterpolatedDataChanged(); break;
+        case 8: { QString _r = _t->DataFromFile();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -190,6 +198,13 @@ void LogFile::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
                 return;
             }
         }
+        {
+            using _t = void (LogFile::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&LogFile::onLoadInterpolatedDataChanged)) {
+                *result = 7;
+                return;
+            }
+        }
     }
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty) {
@@ -198,8 +213,9 @@ void LogFile::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         void *_v = _a[0];
         switch (_id) {
         case 3: *reinterpret_cast< QString*>(_v) = _t->getDataFromFile(); break;
-        case 6: *reinterpret_cast< int*>(_v) = _t->get_interpolate_progress(); break;
-        case 7: *reinterpret_cast< int*>(_v) = _t->get_pause_count(); break;
+        case 4: *reinterpret_cast< QString*>(_v) = _t->load_interpolated_data(); break;
+        case 7: *reinterpret_cast< int*>(_v) = _t->get_interpolate_progress(); break;
+        case 8: *reinterpret_cast< int*>(_v) = _t->get_pause_count(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -210,8 +226,8 @@ void LogFile::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 0: _t->setPath(*reinterpret_cast< QString*>(_v)); break;
         case 1: _t->setInterpolatePath(*reinterpret_cast< QString*>(_v)); break;
         case 2: _t->setData(*reinterpret_cast< QString*>(_v)); break;
-        case 4: _t->start_interpolate(*reinterpret_cast< bool*>(_v)); break;
-        case 5: _t->resume_interpolate(*reinterpret_cast< bool*>(_v)); break;
+        case 5: _t->start_interpolate(*reinterpret_cast< bool*>(_v)); break;
+        case 6: _t->resume_interpolate(*reinterpret_cast< bool*>(_v)); break;
         default: break;
         }
     } else if (_c == QMetaObject::ResetProperty) {
@@ -248,29 +264,29 @@ int LogFile::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 9;
     }
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 8;
+        _id -= 9;
     }
 #endif // QT_NO_PROPERTIES
     return _id;
@@ -316,6 +332,12 @@ void LogFile::onInterpolatePaused()
 void LogFile::onInterpolateStopped()
 {
     QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
+}
+
+// SIGNAL 7
+void LogFile::onLoadInterpolatedDataChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
