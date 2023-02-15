@@ -149,8 +149,6 @@ Makefile: gcs_user_1_0.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf 
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_network.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_network_private.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl.pri \
@@ -177,16 +175,6 @@ Makefile: gcs_user_1_0.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf 
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d_private.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport_private.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender_private.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils.pri \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2_private.pri \
@@ -356,8 +344,6 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_network.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_network_private.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_networkauth_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_nfc_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_opengl.pri:
@@ -384,16 +370,6 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_qmlworkerscript_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3d_private.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dassetimport_private.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3drender_private.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils.pri:
-C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick3dutils_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quick_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_quickcontrols2_private.pri:

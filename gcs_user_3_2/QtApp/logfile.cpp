@@ -31,6 +31,10 @@ QString LogFile::ReadTextFile()
 
     qDebug()<< data_From_File;
 
+    log_interpolated_path = interpolate_path;
+    log_interpolated_path = log_interpolated_path.replace(".txt", "_interpolated.txt") ;
+    LogTextFile(log_interpolated_path,data_From_File);
+
     return data_From_File;
 }
 
@@ -265,6 +269,7 @@ void LogFile::setInterpolatePath(QString _val)
     interpolate_path = _val;
     interpolate_path = interpolate_path.replace("file:///", "");
     interpolate_path = interpolate_path.replace("/", "//");
+//    interpolate_path = interpolate_path.replace(".txt", "_interpolated.txt");
     emit onInterpolatePathChanged();
     // qDebug()<< interpolate_path;
 }
@@ -283,3 +288,18 @@ QString LogFile::getDataFromFile()
     data_From_File = ReadTextFile();
     return data_From_File;
 }
+
+QString LogFile::load_interpolated_data()
+{
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) {
+        return "error";
+    }
+
+    QTextStream in(&file);
+    interpolated_data = in.readAll();
+    qDebug()<< interpolated_data;
+
+    return interpolated_data;
+}
+

@@ -18,6 +18,7 @@ class LogFile :public QObject
     Q_PROPERTY(QString interpolatePath WRITE setInterpolatePath NOTIFY onInterpolatePathChanged)
     Q_PROPERTY(QString data WRITE setData NOTIFY onDataChanged)
     Q_PROPERTY(QString dataFromFile  READ getDataFromFile NOTIFY onDataFromFileChanged)
+    Q_PROPERTY(QString interpolatedData READ load_interpolated_data NOTIFY onLoadInterpolatedDataChanged)
 
     Q_PROPERTY(bool startInterpolate WRITE start_interpolate)
     Q_PROPERTY(bool resumeInterpolate WRITE resume_interpolate)
@@ -39,6 +40,7 @@ public:
     int get_interpolate_progress();
     int get_pause_count();
     QString getDataFromFile();
+    QString load_interpolated_data();
 
     QString line;
     QList<QString> lst;
@@ -84,6 +86,8 @@ public:
     QString data = "";
     QString path = "";
     QString interpolate_path = "";
+    QString interpolated_data = "";
+    QString log_interpolated_path = "";
 
 signals:
     void onPathChanged();
@@ -93,6 +97,7 @@ signals:
     void onInterpolateResumed();
     void onInterpolatePaused();
     void onInterpolateStopped();
+    void onLoadInterpolatedDataChanged();
 
 public slots:
     QString DataFromFile();
