@@ -195,8 +195,8 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.006417, 105.842511)
+             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+//             center: QtPositioning.coordinate(21.006417, 105.842511)
              zoomLevel: 18
              Line{
                  id: line
@@ -279,6 +279,45 @@ Rectangle{
           }
           }
     }
+        Rectangle{
+            id: camera
+            width: parent.width *.3
+            height: parent.height *.25
+            anchors{
+                right: mapview.right
+                rightMargin:parent.width * .01
+                top: mapview.top
+                topMargin: parent.height * .01
+            }
+            color: colorBackground
+            Image {
+                id: img
+                anchors.fill: parent
+
+                property bool counter: false
+
+                function reload() {
+                    counter = !counter
+                    source = "image://live/image?id=" + counter
+                }
+
+                asynchronous: false
+                source: "image://live/image"
+                fillMode: Image.PreserveAspectFit
+                cache: false
+
+                Connections {
+                    target: liveImageProvider
+
+                    function onImageChanged() {
+                        img.reload()
+                    }
+
+            }
+        }
+
+        }
+
     //----------end rectangle----------------
 }
 

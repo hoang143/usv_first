@@ -208,6 +208,8 @@ Makefile: gcs_user_1_0.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++/qmake.conf 
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uiplugin.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools_private.pri \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard.pri \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_vulkan_support_private.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel.pri \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel_private.pri \
@@ -403,6 +405,8 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_theme_support_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uiplugin.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_uitools_private.pri:
+C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard.pri:
+C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_vulkan_support_private.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel.pri:
 C:/Qt/5.15.2/mingw81_64/mkspecs/modules/qt_lib_webchannel_private.pri:

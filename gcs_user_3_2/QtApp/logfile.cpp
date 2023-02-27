@@ -29,7 +29,7 @@ QString LogFile::ReadTextFile()
         data_From_File += QString::number(lstLatInterpolated[i], 'f', 9) + "," + QString::number(lstLngInterpolated[i], 'f', 9) + "," + QString::number(lstDepthInterpolated[i], 'f', 4) + ";";
     }
 
-    qDebug()<< data_From_File;
+//    qDebug()<< data_From_File;
 
     log_interpolated_path = interpolate_path;
     log_interpolated_path = log_interpolated_path.replace(".txt", "_interpolated.txt") ;
@@ -84,17 +84,17 @@ void LogFile::start_interpolate(bool _trig)
                 {
                     if (lstLng.size() > (j+shrink_factor))
                     {
-                        qDebug()<< lstLat.size();
-                        qDebug()<< j;
+//                        qDebug()<< lstLat.size();
+//                        qDebug()<< j;
                         lstLat.removeAt(j);
                         lstLng.removeAt(j);
                         lstDepth.removeAt(j);
 
-                        qDebug()<< lstLat.size();
+//                        qDebug()<< lstLat.size();
                     }
                     else
                     {
-                        qDebug()<< "Break !";
+//                        qDebug()<< "Break !";
                         break;
                     }
 
@@ -105,7 +105,7 @@ void LogFile::start_interpolate(bool _trig)
         }
 
         shrunk_size = lstLat.size();
-        qDebug()<< "Shrunk size: " << shrunk_size;
+//        qDebug()<< "Shrunk size: " << shrunk_size;
 
         double distance1 = lat_lng_to_distance(minLat, maxLng, maxLat, maxLng);
         double distance2 = lat_lng_to_distance(minLat, maxLng, minLat, minLng);
@@ -118,10 +118,10 @@ void LogFile::start_interpolate(bool _trig)
         current_processs_index = 0;
         pause_count = 0;
 
-        qDebug()<< "Total iterations: " << total_interpolate_iterations;
-        qDebug()<< "Total nodes: " << total_interpolate_nodes;
-        qDebug()<< "Lat row num: " << interpolate_lat_num;
-        qDebug()<< "Lng column num: " << interpolate_lng_num;
+//        qDebug()<< "Total iterations: " << total_interpolate_iterations;
+//        qDebug()<< "Total nodes: " << total_interpolate_nodes;
+//        qDebug()<< "Lat row num: " << interpolate_lat_num;
+//        qDebug()<< "Lng column num: " << interpolate_lng_num;
 
         for(int i = 0; i < interpolate_lat_num; i++){
             for(int j = 0; j < interpolate_lng_num; j++){
@@ -131,11 +131,11 @@ void LogFile::start_interpolate(bool _trig)
             }
         }
 
-        qDebug()<< "LatI list size: " << lstLatInterpolated.size();
-        qDebug()<< "LngI list size: " << lstLngInterpolated.size();
-        qDebug()<< "DepthI list size: " << lstDepthInterpolated.size();
+//        qDebug()<< "LatI list size: " << lstLatInterpolated.size();
+//        qDebug()<< "LngI list size: " << lstLngInterpolated.size();
+//        qDebug()<< "DepthI list size: " << lstDepthInterpolated.size();
 
-        qDebug()<< "----------- First interpolation iteration -----------";
+//        qDebug()<< "----------- First interpolation iteration -----------";
 
         // START INTERPOLATION
         resume_interpolate(1);
@@ -153,44 +153,44 @@ void LogFile::resume_interpolate(bool _trig)
         current_processs_index = 0;
         node_increment = 0;
 
-        qDebug()<< " ";
-        qDebug()<< "------- Interpolation resumed: No." << pause_count <<" -------";
-        qDebug()<< "    Current node: " << current_node;
-        qDebug()<< " ";
+//        qDebug()<< " ";
+//        qDebug()<< "------- Interpolation resumed: No." << pause_count <<" -------";
+//        qDebug()<< "    Current node: " << current_node;
+//        qDebug()<< " ";
 
         if (current_node >= (total_interpolate_nodes-1))
         {
             emit onInterpolateStopped();
-            qDebug()<< "------- Interpolation STOPPED ! -------";
-            qDebug()<< "    ... End check";
-            qDebug()<< "    Interpolated Depth list: " << lstDepthInterpolated;
-            qDebug()<< "    Interpolation index: " << current_interpolate_index;
+//            qDebug()<< "------- Interpolation STOPPED ! -------";
+//            qDebug()<< "    ... End check";
+//            qDebug()<< "    Interpolated Depth list: " << lstDepthInterpolated;
+//            qDebug()<< "    Interpolation index: " << current_interpolate_index;
             interpolate_started = 0;
         }
         else
         {
             for (int i = current_node; i < total_interpolate_nodes; i++)
             {
-                qDebug()<< "--- Interation No." << (current_node + node_increment) <<" ---";
-                qDebug()<< "    Start check ...";
-                qDebug()<< "    Current node: " << current_node;
-                qDebug()<< "    Node increment: " << node_increment;
-                qDebug()<< " ";
+//                qDebug()<< "--- Interation No." << (current_node + node_increment) <<" ---";
+//                qDebug()<< "    Start check ...";
+//                qDebug()<< "    Current node: " << current_node;
+//                qDebug()<< "    Node increment: " << node_increment;
+//                qDebug()<< " ";
 
                 if (current_processs_index > process_limit)
                 {
                     current_processs_index = 0;
-                    qDebug()<< "    END: Interpolation paused ...";
-                    qDebug()<< "    ... End check";
-                    qDebug()<< "    Interpolated depth: " << lstDepthInterpolated[i];
-                    qDebug()<< "    Interpolation index: " << current_interpolate_index;
-                    qDebug()<< "    Node increment: " << node_increment;
-                    qDebug()<< " ";
+//                    qDebug()<< "    END: Interpolation paused ...";
+//                    qDebug()<< "    ... End check";
+//                    qDebug()<< "    Interpolated depth: " << lstDepthInterpolated[i];
+//                    qDebug()<< "    Interpolation index: " << current_interpolate_index;
+//                    qDebug()<< "    Node increment: " << node_increment;
+//                    qDebug()<< " ";
 
                     pause_count ++;
                     current_node = current_node + node_increment;
-                    qDebug()<< "    ... End node check";
-                    qDebug()<< "    Current node: " << current_node;
+//                    qDebug()<< "    ... End node check";
+//                    qDebug()<< "    Current node: " << current_node;
 
                     emit onInterpolatePaused();
                     return;
@@ -209,12 +209,12 @@ void LogFile::resume_interpolate(bool _trig)
                         }
                         current_processs_index ++;
                     }
-                    qDebug()<< "    END: Process loop +1 ...";
-                    qDebug()<< "    ... End check";
-                    qDebug()<< "    Interpolated depth: " << lstDepthInterpolated[i];
-                    qDebug()<< "    Interpolation index: " << current_interpolate_index;
-                    qDebug()<< "    Node increment: " << node_increment;
-                    qDebug()<< " ";
+//                    qDebug()<< "    END: Process loop +1 ...";
+//                    qDebug()<< "    ... End check";
+//                    qDebug()<< "    Interpolated depth: " << lstDepthInterpolated[i];
+//                    qDebug()<< "    Interpolation index: " << current_interpolate_index;
+//                    qDebug()<< "    Node increment: " << node_increment;
+//                    qDebug()<< " ";
                     current_interpolate_index = current_interpolate_index + current_processs_index;
                     node_increment ++;
                 }
@@ -232,13 +232,13 @@ int LogFile::get_interpolate_progress()
     _val = 100 * (current_node+1)/total_interpolate_nodes;
     if (_val<0) _val = 0;
 
-    qDebug()<< "Interpolate progress: " << _val << "%";
+//    qDebug()<< "Interpolate progress: " << _val << "%";
     return _val;
 }
 
 int LogFile::get_pause_count()
 {
-    qDebug()<< "Pause count: " << pause_count << "iterations";
+//    qDebug()<< "Pause count: " << pause_count << "iterations";
     return pause_count;
 }
 
@@ -280,7 +280,7 @@ void LogFile::setData(QString _val)
     data = _val;
     LogTextFile(path, data);
     emit onDataChanged();
-    qDebug()<<data;
+//    qDebug()<<data;
 }
 
 QString LogFile::getDataFromFile()
@@ -298,7 +298,7 @@ QString LogFile::load_interpolated_data()
 
     QTextStream in(&file);
     interpolated_data = in.readAll();
-    qDebug()<< interpolated_data;
+//    qDebug()<< interpolated_data;
 
     return interpolated_data;
 }

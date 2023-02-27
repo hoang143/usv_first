@@ -86,7 +86,7 @@ QString udp::receivePacket()
     }
 
 
-    qDebug()<<usv_data;
+//    qDebug()<<usv_data;
 //    qDebug()<<temp1.setNum(auto_mode);
 //    qDebug()<<temp1.setNum(select_auto_mode);
 //    qDebug()<<temp1.setNum(thrust);
@@ -116,7 +116,7 @@ QString udp::receivePacket()
 //    qDebug()<<temp1.setNum(arrival_radius);
 //    qDebug()<<temp1.setNum(zigzag_step);
 //    qDebug()<<temp1.setNum(look_ahead);
-      qDebug()<<temp1.setNum(depth_confidence);
+//      qDebug()<<temp1.setNum(depth_confidence);
 
     emit onReceivedPacket();
     return data;
@@ -426,10 +426,10 @@ float udp::qml_read_distance_to_home()
             home_lng = usv_lng;
         }
         emit gotHome();
-        qDebug() << "USV lat" << usv_lat;
-        qDebug() << "USV lng" <<usv_lng;
-        qDebug() << "Home lat" <<home_lat;
-        qDebug() << "Home lng" <<home_lng;
+//        qDebug() << "USV lat" << usv_lat;
+//        qDebug() << "USV lng" <<usv_lng;
+//        qDebug() << "Home lat" <<home_lat;
+//        qDebug() << "Home lng" <<home_lng;
     }
     void udp::send_home(bool _val)
     {

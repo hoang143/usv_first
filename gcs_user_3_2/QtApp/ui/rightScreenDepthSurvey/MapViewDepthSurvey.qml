@@ -55,7 +55,7 @@ Rectangle{
 
             onTriggered:{
                 logFile.path = path
-                logFile.data = udp.usvLat + "," + udp.usvLng + "," + udp.depth + "," + udp.depthConfidence
+                logFile.data = udp.usvLat + ";" + udp.usvLng + ";" + udp.depth + ";" + udp.depthConfidence
             }
         }
 
@@ -282,8 +282,8 @@ Rectangle{
              anchors.fill: parent
              plugin: mapboxglPlugin
              activeMapType: map.supportedMapTypes[5]
-//             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
-             center: QtPositioning.coordinate(21.009217, 105.842131)
+             center: QtPositioning.coordinate(udp.homeLat, udp.homeLng)
+//             center: QtPositioning.coordinate(21.009217, 105.842131)
              zoomLevel: 18
              Line{
                  id: line

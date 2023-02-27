@@ -7,6 +7,7 @@
 #include <QtQml/QQmlEngine>
 #include "udp.h"
 #include "logfile.h"
+#include "liveimageprovider.h"
 
 
 int main(int argc, char *argv[])
@@ -38,6 +39,10 @@ int main(int argc, char *argv[])
     viewer.show();
 
     QQmlApplicationEngine engine;
+    LiveImageProvider *liveImageProvider(new LiveImageProvider());
+    engine.rootContext()->setContextProperty("liveImageProvider", liveImageProvider);
+    engine.addImageProvider("live", liveImageProvider);
+    // connect updateImage with your live image source
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
