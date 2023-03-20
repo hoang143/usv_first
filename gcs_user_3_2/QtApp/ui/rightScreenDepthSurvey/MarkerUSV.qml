@@ -15,7 +15,7 @@ MapQuickItem {
             source: "qrc:/ui/assets/markerUSV2.png"
             fillMode: Image.PreserveAspectFit
             sourceSize: Qt.size(parent.width, parent.height)
-            rotation: usvMapAngle
+            rotation: usvMapAngle - 15
 
         }
 

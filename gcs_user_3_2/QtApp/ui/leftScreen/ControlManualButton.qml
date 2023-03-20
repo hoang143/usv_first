@@ -361,6 +361,7 @@ Rectangle{
         udp.thrustSend = thrustManual
         udp.momentSend = desireYawManual
         udp.sendManual = 1
+        console.log("left")
 
         leftImage.source = "qrc:/ui/assets/arrowLeft0.png"
     }
@@ -370,6 +371,7 @@ Rectangle{
         udp.thrustSend = thrustManual
         udp.momentSend = desireYawManual
         udp.sendManual = 1
+        console.log("up")
 
         forwardImage.source = "qrc:/ui/assets/arrowUp0.png"
     }
@@ -378,6 +380,7 @@ Rectangle{
         udp.thrustSend = thrustManual
         udp.momentSend = desireYawManual
         udp.sendManual = 1
+        console.log("down")
 
         haltImage.source = "qrc:/ui/assets/halt0.png"
     }
@@ -387,6 +390,7 @@ Rectangle{
         udp.thrustSend = thrustManual
         udp.momentSend = desireYawManual
         udp.sendManual = 1
+        console.log("0")
 
         stopImage.source = "qrc:/ui/assets/stop0.png"
     }
@@ -396,6 +400,7 @@ Rectangle{
         udp.thrustSend = thrustManual
         udp.momentSend = desireYawManual
         udp.sendManual = 1
+        console.log("right")
 
         rightImage.source = "qrc:/ui/assets/arrowRight0.png"
     }

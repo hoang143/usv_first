@@ -55,7 +55,10 @@ Rectangle{
 
             onTriggered:{
                 logFile.path = path
-                logFile.data = udp.usvLat + ";" + udp.usvLng + ";" + udp.depth + ";" + udp.depthConfidence
+                if(udp.depthConfidence > 99)
+                {
+                   logFile.data = udp.usvLat + ";" + udp.usvLng + ";" + udp.depth
+                }
             }
         }
 
@@ -134,7 +137,12 @@ Rectangle{
                         mark_.remove(count)
                         count -=1
                     }
-
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
+                    for(i = lstLatZigzag.length; i > -1; i--){
+                        lineZigzag.removeCoordinate(i)
+                    }
                     count = 0
                 }
             }
@@ -331,8 +339,8 @@ Rectangle{
                           lst.append({"coords":coordinate})
                           count = lst.count
                           cout_dele = count;
-                          lstLat[count] = latMouse
-                          lstLng[count] = lngMouse
+                          mainwindow.lstLat[count] = latMouse
+                          mainwindow.lstLng[count] = lngMouse
                           line.addCoordinate(coordinate)
                           distance = codToMeter(lstLat[count], lstLng[count], lstLat[count - 1], lstLng[count - 1],count)
                           if (count == 1)
@@ -351,6 +359,10 @@ Rectangle{
                                   getLstZigzag()
                                   for(i = 0; i < lstLatZigzag.length; i++){
                                   lineZigzag.addCoordinate(QtPositioning.coordinate(lstLatZigzag[i], lstLngZigzag[i]))
+                                  }
+                                  if(count > 4){
+                                      mark_.remove(count - 1)
+                                      line.removeCoordinate(count)
                                   }
                                   }
                           }

@@ -75,8 +75,9 @@ Rectangle{
             else statusIndicatorGPS.active = false
             if(isCompassAvailable(udp.usvYaw)) statusIndicatorCompass.active = true
             else statusIndicatorCompass.active = false
-            if(isDepthAvailable(udp.usvYaw)) statusIndicatorDepth.active = true
+            if(isDepthAvailable(udp.depth)) statusIndicatorDepth.active = true
             else statusIndicatorDepth.active = false
+
         }
     }
     Rectangle{

@@ -71,7 +71,7 @@ QString udp::receivePacket()
         distance_right = usv_data.at(34).toFloat();
         distance_front_left = usv_data.at(35).toFloat();
         distance_front_right = usv_data.at(36).toFloat();
-        depth = usv_data.at(37).toFloat();
+        depth = -usv_data.at(37).toFloat();
         depth_confidence = usv_data.at(38).toFloat();
 
         if (step_no<1) step_no = 1;

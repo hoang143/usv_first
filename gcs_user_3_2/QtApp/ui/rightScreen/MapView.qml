@@ -180,6 +180,31 @@ Rectangle{
                 countLineUSV = 0
             }
         }
+        Button{
+            id: hideshowcamera
+            anchors{
+                bottom: parent.bottom
+                left: deleteLineUSV.right
+                leftMargin: parent.width * .01
+            }
+            z:10
+            property int temp: 1
+            width: parent.width * .15
+            height: deleteAllButton.height
+            text: qsTr("Hide Camera")
+            onClicked:{
+                if(temp % 2 == 0){
+                    camera.visible = true
+                    hideshowcamera.text = "Hide Camera"
+                }
+                else
+                {
+                    camera.visible = false
+                    hideshowcamera.text = "Show Camera"
+                }
+                temp += 1
+            }
+        }
         }
 
         Plugin {
@@ -282,18 +307,19 @@ Rectangle{
         Rectangle{
             id: camera
             width: parent.width *.3
-            height: parent.height *.25
+            height: parent.height *.22
             anchors{
                 right: mapview.right
-                rightMargin:parent.width * .01
+//                rightMargin:parent.width * .01
                 top: mapview.top
-                topMargin: parent.height * .01
+//                topMargin: parent.height * .01
             }
+            z:100
             color: colorBackground
             Image {
                 id: img
                 anchors.fill: parent
-
+//                fillMode: Image.PreserveAspectFit
                 property bool counter: false
 
                 function reload() {
@@ -303,7 +329,6 @@ Rectangle{
 
                 asynchronous: false
                 source: "image://live/image"
-                fillMode: Image.PreserveAspectFit
                 cache: false
 
                 Connections {
@@ -315,6 +340,42 @@ Rectangle{
 
             }
         }
+            Rectangle{
+                id:zoomcamera
+                anchors{
+                    top: parent.top
+                    right: parent.right
+                }
+                color: "transparent"
+                width: 30
+                height: 30
+                MouseArea{
+                    property int temp: 1
+                    anchors.fill: parent
+                    onClicked:{
+                        if(temp % 2 != 0){
+                            camera.width = rectangleMap.width
+                            camera.height = rectangleMap.height
+                            textzoomcamera.text = "_"
+                        }
+                        else
+                        {
+                            camera.width = rectangleMap.width * .3
+                            camera.height = rectangleMap.height *.22
+                            textzoomcamera.text = "[ ]"
+                        }
+                        temp += 1
+                    }
+                }
+                Text{
+                    id:textzoomcamera
+                    anchors.centerIn: parent.Center
+                    text: qsTr("[ ]")
+                    font.bold: true
+                    font.pointSize: 12
+//                    color: colorBackground
+                }
+            }
 
         }
 
